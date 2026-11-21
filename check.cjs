@@ -1,0 +1,14 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const html = fs.readFileSync(__dirname + '/屏幕尺子.html', 'utf8');
+assert.equal(fs.readFileSync(__dirname + '/index.html', 'utf8'), html, 'HTML entries must match; run node build-offline.cjs');
+const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(match => match[1]);
+assert(scripts.length > 0, 'No application scripts');
+for (const script of scripts) new vm.Script(script);
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(x => x[1]);
+assert.equal(ids.length, new Set(ids).size, 'Duplicate HTML IDs');
+const uses = scripts.flatMap(script => [...script.matchAll(/\$\('([^']+)'\)/g)].map(x => x[1]));
+assert.deepEqual([...new Set(uses.filter(x => !ids.includes(x)))], [], 'Missing DOM elements');
+assert(!/https?:\/\//.test(html.replace(/http:\/\/www.w3.org\/2000\/svg/g, '')), 'External dependencies');
+console.log('PASS: JavaScript syntax, DOM references, unique IDs, no external dependencies.');

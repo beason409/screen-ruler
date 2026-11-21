@@ -1,0 +1,7 @@
+backups/
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+功能预览_v2.jpg
+屏幕尺子_离线版*.zip
