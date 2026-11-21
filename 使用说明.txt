@@ -1,6 +1,6 @@
 屏幕尺子 — 本地离线版 v1.1.0
 
-双击“屏幕尺子.html”，用 Edge、Chrome 或 Firefox 打开即可使用。
+双击“screen-ruler.html”，用 Edge、Chrome 或 Firefox 打开即可使用。
 这是独立文件，可以复制到桌面、收藏夹或其他文件夹，无需安装、联网或启动服务器。
 
 首次使用：

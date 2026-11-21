@@ -2,14 +2,14 @@
 
 一个可以直接在浏览器中打开的屏幕尺子。校准后，把物品放在屏幕前，用可拖动方框、圆形或多个标记点对比实际尺寸。
 
-[下载屏幕尺子.html](https://github.com/beason409/screen-ruler/raw/refs/heads/main/%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AD%90.html) · [详细使用说明与硬币规格来源](使用说明.txt)
+[下载screen-ruler.html](https://github.com/beason409/screen-ruler/raw/refs/heads/main/screen-ruler.html) · [详细使用说明与硬币规格来源](使用说明.txt)
 
 ![屏幕尺子中英文多点测量预览](docs/preview.jpg)
 
 ## 使用
 
-1. 下载上方的 `屏幕尺子.html`，或下载仓库。
-2. 用 Edge、Chrome 或 Firefox 打开 `屏幕尺子.html`。单个 HTML 文件即可离线运行，无需安装或启动服务器。
+1. 下载上方的 `screen-ruler.html`，或下载仓库。
+2. 用 Edge、Chrome 或 Firefox 打开 `screen-ruler.html`。单个 HTML 文件即可离线运行，无需安装或启动服务器。
 3. 点击“校准屏幕”，选择一种校准方式并保存。
 4. 使用“形状对比”或“定点测量”；形状可选方框或圆形。
 5. 页头点击“English”切换英文，点击“中文”切回中文；语言选择保存在当前浏览器。
@@ -56,7 +56,7 @@ node verify.cjs
 node verify-points.cjs
 ```
 
-`build-offline.cjs` 把 `i18n-source.js` 和 `point-measurement-source.js` 内联到 `屏幕尺子.html`，保持这个入口可独立离线使用。
+`build-offline.cjs` 把 `i18n-source.js` 和 `point-measurement-source.js` 内联到 `screen-ruler.html`，保持这个入口可独立离线使用。
 
 已提供脚本语法、DOM 引用、无外部依赖、校准与网格吸附行为检查。定点测量的点击、拖动、距离换算、撤销、清空、模式切换及校准比例同步已进行浏览器实测。
 
@@ -64,7 +64,7 @@ node verify-points.cjs
 
 | 文件 | 用途 |
 | --- | --- |
-| `屏幕尺子.html` | 可独立打开的完整应用 |
+| `screen-ruler.html` | 可独立打开的完整应用 |
 | `point-measurement-source.js` | 定点测量模块源码 |
 | `i18n-source.js` | 中英文词典与语言切换源码 |
 | `build-offline.cjs` | 更新 HTML 内联模块 |
@@ -73,7 +73,7 @@ node verify-points.cjs
 
 ## English
 
-Screen Ruler is a self-contained browser tool for comparing real objects against a draggable rectangle or circle, or measuring distances between marked points. Open `屏幕尺子.html` locally; no installation, server, network connection, or external assets are required.
+Screen Ruler is a self-contained browser tool for comparing real objects against a draggable rectangle or circle, or measuring distances between marked points. Open `screen-ruler.html` locally; no installation, server, network connection, or external assets are required.
 
 Use **English / 中文** in the header to switch languages. Your preference is remembered without changing calibration, dimensions, or marked points.
 

@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
-const html = fs.readFileSync(__dirname + '/屏幕尺子.html', 'utf8');
+const html = fs.readFileSync(__dirname + '/screen-ruler.html', 'utf8');
 const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(match => match[1]);
 assert(scripts.length > 0, 'No application scripts');
 for (const script of scripts) new vm.Script(script);

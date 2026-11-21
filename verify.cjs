@@ -8,7 +8,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 
-const html = fs.readFileSync(path.join(__dirname, '屏幕尺子.html'), 'utf8');
+const html = fs.readFileSync(path.join(__dirname, 'screen-ruler.html'), 'utf8');
 const source = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const KEY = 'screen-ruler-v1';
 const LANGUAGE_KEY = 'screen-ruler-language';
@@ -149,7 +149,7 @@ function createApp({ width = 800, height = 500, dpr = 1, stored, language, denyS
     clearTimeout() {},
     console,
   };
-  vm.runInNewContext(source, sandbox, { filename: '屏幕尺子.html:inline', timeout: 1000 });
+  vm.runInNewContext(source, sandbox, { filename: 'screen-ruler.html:inline', timeout: 1000 });
   const flushRaf = () => {
     let count = 0;
     while (raf.length) {

@@ -1,7 +1,7 @@
 // Regenerates the inline point tool while keeping the deliverable as one offline HTML file.
 const fs = require('node:fs');
 const path = require('node:path');
-const target = path.join(__dirname, '屏幕尺子.html');
+const target = path.join(__dirname, 'screen-ruler.html');
 const source = fs.readFileSync(path.join(__dirname, 'point-measurement-source.js'), 'utf8');
 const i18nSource = fs.readFileSync(path.join(__dirname, 'i18n-source.js'), 'utf8');
 const marker = '<!-- POINT-MEASUREMENT-START -->';
