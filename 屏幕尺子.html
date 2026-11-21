@@ -5,15 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="可离线使用的屏幕实物尺子。校准屏幕后，拖动测量框对比物品的真实宽高。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20512%20512%22%20fill%3D%22none%22%3E%3Ctitle%3E%E4%B8%AA%E4%BA%BA%E6%A0%87%E8%AF%86%3C%2Ftitle%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%22488%22%20height%3D%22488%22%20rx%3D%22112%22%20fill%3D%22%23101E2C%22%2F%3E%3Cpath%20d%3D%22M125%20126H263C331%20126%20367%20150%20367%20197%20367%20222%20355%20242%20334%20254%20362%20268%20378%20292%20378%20321%20378%20365%20343%20390%20269%20390H125L174%20341H268C302%20341%20318%20333%20318%20314%20318%20295%20302%20287%20268%20287H227L278%20238C301%20236%20310%20226%20310%20210%20310%20188%20294%20178%20263%20178H177Z%22%20fill%3D%22%2367DCCF%22%2F%3E%3Cpath%20d%3D%22M96%20218H244L200%20262H96ZM96%20284H178L134%20328H96Z%22%20fill%3D%22%23E9BA70%22%2F%3E%3Cpath%20d%3D%22M258%20126H295L346%20177H309Z%22%20fill%3D%22%23EAF8EE%22%2F%3E%3C%2Fsvg%3E">
 <title>屏幕尺子 · 实物尺寸对比</title>
 <style>
 :root{font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif;color:#e4e9ed;background:#101419;font-size:16px;--bg:#101419;--panel:#171d24;--field:#10171d;--raised:#202832;--line:#2b3541;--muted:#95a2b1;--text:#e4e9ed;--accent:#91efbb;--accent-ink:#10291b;--tick:#8597a5;--minor:rgba(153,181,194,.09);--major:rgba(153,181,194,.13);--warn:#f4cc86}
-*{box-sizing:border-box}body{margin:0;overflow:hidden}button,input,select{font:inherit}button{cursor:pointer}button,input,select{color:inherit}button{border:1px solid var(--line);background:var(--raised);border-radius:8px;padding:10px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.875rem;line-height:1.35}button:hover{border-color:var(--muted);filter:brightness(1.08)}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button:disabled{opacity:.4;cursor:not-allowed}button svg,svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.sprite{position:absolute;width:0;height:0;overflow:hidden}.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:650}.quiet{background:transparent}.small{padding:7px 10px}.app{height:100dvh;display:grid;grid-template-rows:76px minmax(0,1fr) 36px}.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 27px;border-bottom:1px solid var(--line);gap:20px}.brand{display:flex;align-items:center;gap:13px}.brand-icon{width:37px;height:37px;border:1px solid var(--accent);border-radius:9px;color:var(--accent);display:grid;place-items:center}.brand-icon svg{width:25px;height:25px}.brand h1{font-size:1.18rem;letter-spacing:.04em;margin:0 0 3px}.brand p{font-size:.7rem;letter-spacing:.16em;color:var(--muted);margin:0}.header-actions{display:flex;align-items:center;gap:10px}.offline{color:var(--muted);font-size:.8rem;margin-right:12px;display:flex;align-items:center;gap:7px}.layout{min-height:0;display:grid;grid-template-columns:282px minmax(0,1fr)}.sidebar{padding:25px 21px;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:25px}.section-label{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px;font-size:.875rem;font-weight:600}.section-meta{font-size:.75rem;font-weight:400;color:var(--muted)}.segmented{display:flex;border:1px solid var(--line);border-radius:9px;padding:4px;gap:3px;background:var(--bg)}.segmented button{flex:1;border:0;background:transparent;color:var(--muted);padding:8px 4px;font-size:.875rem;border-radius:5px}.segmented button[aria-pressed=true]{background:var(--raised);color:var(--accent);box-shadow:0 1px 4px #0002}.dimensions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field-label{font-size:.8rem;display:block;color:var(--muted);margin-bottom:8px}.number-field{display:flex;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:0 10px;min-width:0}.number-field input{width:100%;min-width:0;border:0;background:transparent;font-variant-numeric:tabular-nums;font-size:1.3rem;font-weight:550;padding:12px 0;outline:none}.number-field:focus-within{border-color:var(--accent)}.number-field span{font-size:.75rem;color:var(--muted);margin-left:3px}input[type=number]{appearance:textfield;-moz-appearance:textfield}input::-webkit-inner-spin-button{appearance:none}.row{display:flex;align-items:center;gap:8px}.dimension-actions{margin-top:11px}.dimension-actions button{flex:1;font-size:.8rem;padding:8px}.dimension-actions button[aria-pressed=true]{color:var(--accent);border-color:var(--accent)}.presets{display:flex;gap:7px;flex-wrap:wrap}.presets button{font-variant-numeric:tabular-nums;font-size:.8rem;padding:8px 10px;background:transparent}.setting{display:flex;justify-content:space-between;align-items:center;font-size:.875rem;padding:9px 0;gap:8px}.switch{padding:0;border-radius:20px;width:34px;height:20px;position:relative;background:var(--line);border:0;flex-shrink:0}.switch:before{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:var(--muted);left:3px;top:3px;transition:transform .15s}.switch[aria-checked=true]{background:var(--accent)}.switch[aria-checked=true]:before{transform:translateX(14px);background:var(--accent-ink)}.swatches{display:flex;gap:7px}.swatch{width:23px;height:23px;border-radius:50%;padding:0;background:var(--swatch);border:3px solid var(--panel);outline:1px solid var(--line)}.swatch[aria-pressed=true]{outline:2px solid var(--swatch)}.help{margin-top:auto;padding-top:7px;color:var(--muted);font-size:.8rem;line-height:1.9}.help p{margin:3px 0}.help kbd{font:inherit;color:var(--text);font-size:.72rem;background:var(--raised);padding:2px 5px;border-radius:4px;border:1px solid var(--line)}.workspace{display:flex;flex-direction:column;min-width:0;min-height:0;padding:24px 26px 22px;gap:17px;background:var(--bg)}.workspace-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.workspace-title h2{font-size:1rem;margin:0 0 6px;font-weight:600}.workspace-title p{font-size:.8rem;margin:0;color:var(--muted)}.status{font-size:.8rem;color:var(--warn);background:transparent;white-space:nowrap;padding:8px 10px;border-color:var(--line)}.status.calibrated{color:var(--accent)}.viewport{position:relative;flex:1;min-height:180px;background:var(--field);border:1px solid var(--line);border-radius:11px;overflow:hidden}.ruler-x{position:absolute;left:36px;right:0;top:0;height:36px;background:var(--panel);border-bottom:1px solid var(--line)}.ruler-y{position:absolute;top:36px;left:0;bottom:0;width:36px;background:var(--panel);border-right:1px solid var(--line)}.origin{position:absolute;left:0;top:0;width:36px;height:36px;display:grid;place-items:center;background:var(--panel);border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:.65rem;color:var(--muted)}canvas{display:block}.stage{position:absolute;inset:36px 0 0 36px;overflow:hidden;touch-action:none;background-image:linear-gradient(to right,var(--minor) 1px,transparent 1px),linear-gradient(to bottom,var(--minor) 1px,transparent 1px),linear-gradient(to right,var(--major) 1px,transparent 1px),linear-gradient(to bottom,var(--major) 1px,transparent 1px);background-size:var(--grid-small) var(--grid-small),var(--grid-small) var(--grid-small),var(--grid-large) var(--grid-large),var(--grid-large) var(--grid-large)}.stage.no-grid{background-image:none}.stage:after{content:"REAL-SIZE WORKSPACE";position:absolute;right:23px;bottom:20px;color:var(--muted);opacity:.38;font-size:.65rem;letter-spacing:.22em;pointer-events:none}.measure-box{position:absolute;border:1px solid var(--accent);background:color-mix(in srgb,var(--accent) 3%,transparent);cursor:move;touch-action:none;outline:none;--handle:10px}.measure-box:focus-visible{outline:1px dashed var(--accent);outline-offset:7px}.measure-box.locked{cursor:default}.measure-box .handle{position:absolute;width:var(--handle);height:var(--handle);background:var(--field);border:2px solid var(--accent);z-index:3;border-radius:1px;padding:0;min-width:0;touch-action:none}.handle[data-h=nw]{left:-5px;top:-5px;cursor:nwse-resize}.handle[data-h=ne]{right:-5px;top:-5px;cursor:nesw-resize}.handle[data-h=sw]{left:-5px;bottom:-5px;cursor:nesw-resize}.handle[data-h=se]{right:-5px;bottom:-5px;cursor:nwse-resize}.handle[data-h=n]{left:calc(50% - 5px);top:-5px;cursor:ns-resize}.handle[data-h=s]{left:calc(50% - 5px);bottom:-5px;cursor:ns-resize}.handle[data-h=w]{left:-5px;top:calc(50% - 5px);cursor:ew-resize}.handle[data-h=e]{right:-5px;top:calc(50% - 5px);cursor:ew-resize}.locked .handle{display:none}.box-width,.box-height{position:absolute;color:var(--accent);font-size:.875rem;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;pointer-events:none;background:var(--field);padding:3px 7px;line-height:1.3}.box-width{top:-31px;left:50%;transform:translateX(-50%)}.box-height{left:calc(100% + 14px);top:50%;transform:translateY(-50%)}.measure-box.label-left .box-height{left:auto;right:calc(100% + 14px)}.measure-box.label-inside .box-width{top:8px}.measure-box.label-height-inside .box-height{left:auto;right:7px;top:22px;transform:none}.box-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;text-align:center;pointer-events:none;color:var(--muted);font-size:.7rem;line-height:1.7}.cross{width:22px;height:22px;position:relative;margin:0 auto 11px;opacity:.7}.cross:before,.cross:after{content:"";position:absolute;background:var(--accent);left:50%;top:50%}.cross:before{width:22px;height:1px;transform:translate(-50%,-50%)}.cross:after{width:1px;height:22px;transform:translate(-50%,-50%)}.measure-box.compact .box-center{display:none}.measure-box.no-center .box-center{display:none}.bottom-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:30px}.readout{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:10px;flex-wrap:wrap}.readout strong{font-size:1.15rem;font-weight:550;color:var(--text);font-variant-numeric:tabular-nums}.readout .divider{height:14px;width:1px;background:var(--line);margin:0 6px}.warning{font-size:.8rem;color:var(--warn);line-height:1.6}.footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:0 25px;color:var(--muted);font-size:.7rem;gap:12px}.footer span:last-child{font-variant-numeric:tabular-nums}.focus .layout{grid-template-columns:1fr}.focus .sidebar,.focus .topbar .offline{display:none}.focus .workspace{padding:15px}.focus .app{grid-template-rows:60px minmax(0,1fr) 30px}.focus .topbar{padding:0 18px}.toast{position:fixed;left:50%;bottom:50px;transform:translateX(-50%);background:var(--raised);color:var(--text);border:1px solid var(--line);box-shadow:0 8px 30px #0003;border-radius:9px;padding:12px 20px;font-size:.875rem;z-index:20;max-width:90vw}.toast[hidden]{display:none}dialog{color:var(--text);background:var(--panel);border:1px solid var(--line);padding:0;border-radius:16px;width:720px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);box-shadow:0 25px 100px #0005}dialog::backdrop{background:#05090dcc;backdrop-filter:blur(5px)}.dialog-header{display:flex;align-items:flex-start;justify-content:space-between;padding:25px 28px 0;gap:20px}.eyebrow{color:var(--accent);font-size:.7rem;letter-spacing:.16em;margin:0 0 9px}.dialog-header h2{font-size:1.4rem;margin:0}.close{padding:5px;background:transparent}.dialog-body{padding:20px 28px 25px}.dialog-intro{font-size:.875rem;line-height:1.8;color:var(--muted);margin:0 0 20px}.cal-tabs{max-width:340px;margin-bottom:16px}.custom-length{margin:0 0 15px;max-width:230px}.custom-length[hidden]{display:none}.custom-length .number-field input{font-size:1rem;padding:9px 0}.cal-area{background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:auto;padding:28px;min-height:250px;display:flex;align-items:center;justify-content:flex-start;position:relative}.cal-card{position:relative;flex-shrink:0;border:1px solid var(--accent);width:323.5px;height:204px;border-radius:12px;color:var(--accent);background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 6%,transparent),transparent);touch-action:none}.cal-card-inner{padding:22px;overflow:hidden;height:100%;pointer-events:none}.cal-card .card-brand{font-size:.75rem;letter-spacing:.12em;white-space:nowrap}.card-chip{width:31px;height:25px;border:1px solid var(--accent);border-radius:5px;opacity:.6;margin:21px 0 13px;background:linear-gradient(0deg,transparent 48%,var(--accent) 49%,var(--accent) 51%,transparent 52%)}.card-size{font-size:.8rem;white-space:nowrap;opacity:.8}.cal-handle{position:absolute;right:-10px;top:calc(50% - 20px);width:20px;height:40px;border:1px solid var(--accent);color:var(--accent);background:var(--panel);padding:0;cursor:ew-resize;border-radius:5px;touch-action:none}.cal-card.custom{height:80px;border-radius:0;border-top:0;border-bottom:0;background:linear-gradient(var(--accent),var(--accent)) center/100% 1px no-repeat}.cal-card.custom .card-chip,.cal-card.custom .card-brand{display:none}.cal-card.custom .cal-card-inner{display:grid;place-items:start center;padding:4px}.cal-card.custom .card-size{background:var(--bg);padding:0 8px}.cal-controls{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;margin-top:18px}input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}.cal-detail{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px;color:var(--muted);font-size:.75rem}.cal-detail input{width:82px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:5px 6px;font-size:.8rem}.dialog-note{font-size:.8rem;line-height:1.8;color:var(--muted);margin:19px 0 0}.dialog-note strong{color:var(--text);font-weight:500}.dialog-footer{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-top:1px solid var(--line);gap:12px}.dialog-footer p{font-size:.75rem;color:var(--muted);margin:0}.dialog-footer .row{justify-content:flex-end}.light{--bg:#f3f6f7;--panel:#fff;--field:#fff;--raised:#edf2f5;--line:#d2dce3;--muted:#627180;--text:#1b2c38;--accent:#087249;--accent-ink:#fff;--tick:#5f7380;--minor:rgba(66,96,111,.07);--major:rgba(66,96,111,.14);--warn:#9a5606;color:var(--text);background:var(--bg);color-scheme:light}.light .cal-card{background-color:#f5faf6}.light .swatch{border-color:var(--panel)}
+*{box-sizing:border-box}body{margin:0;overflow:hidden}button,input,select{font:inherit}button{cursor:pointer}button,input,select{color:inherit}button{border:1px solid var(--line);background:var(--raised);border-radius:8px;padding:10px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.875rem;line-height:1.35}button:hover{border-color:var(--muted);filter:brightness(1.08)}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button:disabled{opacity:.4;cursor:not-allowed}button svg,svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.sprite{position:absolute;width:0;height:0;overflow:hidden}.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:650}.quiet{background:transparent}.small{padding:7px 10px}.app{height:100dvh;display:grid;grid-template-rows:76px minmax(0,1fr) 36px}.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 27px;border-bottom:1px solid var(--line);gap:20px}.brand{display:flex;align-items:center;gap:13px}.brand-icon{width:37px;height:37px;border:1px solid var(--accent);border-radius:9px;color:var(--accent);display:grid;place-items:center}.brand-icon svg{width:25px;height:25px}.brand h1{font-size:1.18rem;letter-spacing:.04em;margin:0 0 3px}.brand p{font-size:.7rem;letter-spacing:.16em;color:var(--muted);margin:0}.header-actions{display:flex;align-items:center;gap:10px}.offline{color:var(--muted);font-size:.8rem;margin-right:12px;display:flex;align-items:center;gap:7px}.layout{min-height:0;display:grid;grid-template-columns:282px minmax(0,1fr)}.sidebar{padding:25px 21px;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:25px}.section-label{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px;font-size:.875rem;font-weight:600}.section-meta{font-size:.75rem;font-weight:400;color:var(--muted)}.segmented{display:flex;border:1px solid var(--line);border-radius:9px;padding:4px;gap:3px;background:var(--bg)}.segmented button{flex:1;border:0;background:transparent;color:var(--muted);padding:8px 4px;font-size:.875rem;border-radius:5px}.segmented button[aria-pressed=true]{background:var(--raised);color:var(--accent);box-shadow:0 1px 4px #0002}.dimensions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field-label{font-size:.8rem;display:block;color:var(--muted);margin-bottom:8px}.number-field{display:flex;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:0 10px;min-width:0}.number-field input{width:100%;min-width:0;border:0;background:transparent;font-variant-numeric:tabular-nums;font-size:1.3rem;font-weight:550;padding:12px 0;outline:none}.number-field:focus-within{border-color:var(--accent)}.number-field span{font-size:.75rem;color:var(--muted);margin-left:3px}input[type=number]{appearance:textfield;-moz-appearance:textfield}input::-webkit-inner-spin-button{appearance:none}.row{display:flex;align-items:center;gap:8px}.dimension-actions{margin-top:11px}.dimension-actions button{flex:1;font-size:.8rem;padding:8px}.dimension-actions button[aria-pressed=true]{color:var(--accent);border-color:var(--accent)}.presets{display:flex;gap:7px;flex-wrap:wrap}.presets button{font-variant-numeric:tabular-nums;font-size:.8rem;padding:8px 10px;background:transparent}.setting{display:flex;justify-content:space-between;align-items:center;font-size:.875rem;padding:9px 0;gap:8px}.switch{padding:0;border-radius:20px;width:34px;height:20px;position:relative;background:var(--line);border:0;flex-shrink:0}.switch:before{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:var(--muted);left:3px;top:3px;transition:transform .15s}.switch[aria-checked=true]{background:var(--accent)}.switch[aria-checked=true]:before{transform:translateX(14px);background:var(--accent-ink)}.swatches{display:flex;gap:7px}.swatch{width:23px;height:23px;border-radius:50%;padding:0;background:var(--swatch);border:3px solid var(--panel);outline:1px solid var(--line)}.swatch[aria-pressed=true]{outline:2px solid var(--swatch)}.help{margin-top:auto;padding-top:7px;color:var(--muted);font-size:.8rem;line-height:1.9}.help p{margin:3px 0}.help kbd{font:inherit;color:var(--text);font-size:.72rem;background:var(--raised);padding:2px 5px;border-radius:4px;border:1px solid var(--line)}.workspace{display:flex;flex-direction:column;min-width:0;min-height:0;padding:24px 26px 22px;gap:17px;background:var(--bg)}.workspace-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.workspace-title h2{font-size:1rem;margin:0 0 6px;font-weight:600}.workspace-title p{font-size:.8rem;margin:0;color:var(--muted)}.viewport{position:relative;flex:1;min-height:180px;background:var(--field);border:1px solid var(--line);border-radius:11px;overflow:hidden}.ruler-x{position:absolute;left:36px;right:0;top:0;height:36px;background:var(--panel);border-bottom:1px solid var(--line)}.ruler-y{position:absolute;top:36px;left:0;bottom:0;width:36px;background:var(--panel);border-right:1px solid var(--line)}.origin{position:absolute;left:0;top:0;width:36px;height:36px;display:grid;place-items:center;background:var(--panel);border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:.65rem;color:var(--muted)}canvas{display:block}.stage{position:absolute;inset:36px 0 0 36px;overflow:hidden;touch-action:none;background-image:linear-gradient(to right,var(--minor) 1px,transparent 1px),linear-gradient(to bottom,var(--minor) 1px,transparent 1px),linear-gradient(to right,var(--major) 1px,transparent 1px),linear-gradient(to bottom,var(--major) 1px,transparent 1px);background-size:var(--grid-small) var(--grid-small),var(--grid-small) var(--grid-small),var(--grid-large) var(--grid-large),var(--grid-large) var(--grid-large)}.stage.no-grid{background-image:none}.stage:after{content:"REAL-SIZE WORKSPACE";position:absolute;right:23px;bottom:20px;color:var(--muted);opacity:.38;font-size:.65rem;letter-spacing:.22em;pointer-events:none}.measure-box{position:absolute;border:1px solid var(--accent);background:color-mix(in srgb,var(--accent) 3%,transparent);cursor:move;touch-action:none;outline:none;--handle:10px}.measure-box:focus-visible{outline:1px dashed var(--accent);outline-offset:7px}.measure-box.locked{cursor:default}.measure-box .handle{position:absolute;width:var(--handle);height:var(--handle);background:var(--field);border:2px solid var(--accent);z-index:3;border-radius:1px;padding:0;min-width:0;touch-action:none}.handle[data-h=nw]{left:-5px;top:-5px;cursor:nwse-resize}.handle[data-h=ne]{right:-5px;top:-5px;cursor:nesw-resize}.handle[data-h=sw]{left:-5px;bottom:-5px;cursor:nesw-resize}.handle[data-h=se]{right:-5px;bottom:-5px;cursor:nwse-resize}.handle[data-h=n]{left:calc(50% - 5px);top:-5px;cursor:ns-resize}.handle[data-h=s]{left:calc(50% - 5px);bottom:-5px;cursor:ns-resize}.handle[data-h=w]{left:-5px;top:calc(50% - 5px);cursor:ew-resize}.handle[data-h=e]{right:-5px;top:calc(50% - 5px);cursor:ew-resize}.locked .handle{display:none}.box-width,.box-height{position:absolute;color:var(--accent);font-size:.875rem;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;pointer-events:none;background:var(--field);padding:3px 7px;line-height:1.3}.box-width{top:-31px;left:50%;transform:translateX(-50%)}.box-height{left:calc(100% + 14px);top:50%;transform:translateY(-50%)}.measure-box.label-left .box-height{left:auto;right:calc(100% + 14px)}.measure-box.label-inside .box-width{top:8px}.measure-box.label-height-inside .box-height{left:auto;right:7px;top:22px;transform:none}.box-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;text-align:center;pointer-events:none;color:var(--muted);font-size:.7rem;line-height:1.7}.cross{width:22px;height:22px;position:relative;margin:0 auto 11px;opacity:.7}.cross:before,.cross:after{content:"";position:absolute;background:var(--accent);left:50%;top:50%}.cross:before{width:22px;height:1px;transform:translate(-50%,-50%)}.cross:after{width:1px;height:22px;transform:translate(-50%,-50%)}.measure-box.compact .box-center{display:none}.measure-box.no-center .box-center{display:none}.bottom-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:30px}.readout{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:10px;flex-wrap:wrap}.readout strong{font-size:1.15rem;font-weight:550;color:var(--text);font-variant-numeric:tabular-nums}.readout .divider{height:14px;width:1px;background:var(--line);margin:0 6px}.warning{font-size:.8rem;color:var(--warn);line-height:1.6}.footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:0 25px;color:var(--muted);font-size:.7rem;gap:12px}.footer span:last-child{font-variant-numeric:tabular-nums}.focus .layout{grid-template-columns:1fr}.focus .sidebar,.focus .topbar .offline{display:none}.focus .workspace{padding:15px}.focus .app{grid-template-rows:60px minmax(0,1fr) 30px}.focus .topbar{padding:0 18px}.toast{position:fixed;left:50%;bottom:50px;transform:translateX(-50%);background:var(--raised);color:var(--text);border:1px solid var(--line);box-shadow:0 8px 30px #0003;border-radius:9px;padding:12px 20px;font-size:.875rem;z-index:20;max-width:90vw}.toast[hidden]{display:none}dialog{color:var(--text);background:var(--panel);border:1px solid var(--line);padding:0;border-radius:16px;width:720px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);box-shadow:0 25px 100px #0005}dialog::backdrop{background:#05090dcc;backdrop-filter:blur(5px)}.dialog-header{display:flex;align-items:flex-start;justify-content:space-between;padding:25px 28px 0;gap:20px}.eyebrow{color:var(--accent);font-size:.7rem;letter-spacing:.16em;margin:0 0 9px}.dialog-header h2{font-size:1.4rem;margin:0}.close{padding:5px;background:transparent}.dialog-body{padding:20px 28px 25px}.dialog-intro{font-size:.875rem;line-height:1.8;color:var(--muted);margin:0 0 20px}.cal-tabs{max-width:340px;margin-bottom:16px}.custom-length{margin:0 0 15px;max-width:230px}.custom-length[hidden]{display:none}.custom-length .number-field input{font-size:1rem;padding:9px 0}.cal-area{background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:auto;padding:28px;min-height:250px;display:flex;align-items:center;justify-content:flex-start;position:relative}.cal-card{position:relative;flex-shrink:0;border:1px solid var(--accent);width:323.5px;height:204px;border-radius:12px;color:var(--accent);background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 6%,transparent),transparent);touch-action:none}.cal-card-inner{padding:22px;overflow:hidden;height:100%;pointer-events:none}.cal-card .card-brand{font-size:.75rem;letter-spacing:.12em;white-space:nowrap}.card-chip{width:31px;height:25px;border:1px solid var(--accent);border-radius:5px;opacity:.6;margin:21px 0 13px;background:linear-gradient(0deg,transparent 48%,var(--accent) 49%,var(--accent) 51%,transparent 52%)}.card-size{font-size:.8rem;white-space:nowrap;opacity:.8}.cal-handle{position:absolute;right:-10px;top:calc(50% - 20px);width:20px;height:40px;border:1px solid var(--accent);color:var(--accent);background:var(--panel);padding:0;cursor:ew-resize;border-radius:5px;touch-action:none}.cal-card.custom{height:80px;border-radius:0;border-top:0;border-bottom:0;background:linear-gradient(var(--accent),var(--accent)) center/100% 1px no-repeat}.cal-card.custom .card-chip,.cal-card.custom .card-brand{display:none}.cal-card.custom .cal-card-inner{display:grid;place-items:start center;padding:4px}.cal-card.custom .card-size{background:var(--bg);padding:0 8px}.cal-controls{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;margin-top:18px}input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}.cal-detail{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px;color:var(--muted);font-size:.75rem}.cal-detail input{width:82px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:5px 6px;font-size:.8rem}.dialog-note{font-size:.8rem;line-height:1.8;color:var(--muted);margin:19px 0 0}.dialog-note strong{color:var(--text);font-weight:500}.dialog-footer{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-top:1px solid var(--line);gap:12px}.dialog-footer p{font-size:.75rem;color:var(--muted);margin:0}.dialog-footer .row{justify-content:flex-end}.light{--bg:#f3f6f7;--panel:#fff;--field:#fff;--raised:#edf2f5;--line:#d2dce3;--muted:#627180;--text:#1b2c38;--accent:#087249;--accent-ink:#fff;--tick:#5f7380;--minor:rgba(66,96,111,.07);--major:rgba(66,96,111,.14);--warn:#9a5606;color:var(--text);background:var(--bg);color-scheme:light}.light .cal-card{background-color:#f5faf6}.light .swatch{border-color:var(--panel)}
 @media(max-width:820px){.topbar{padding:0 16px}.offline{display:none}.layout{grid-template-columns:240px 1fr}.sidebar{padding:20px 16px;gap:21px}.workspace{padding:18px 14px;gap:13px}.workspace-head{align-items:flex-start;flex-direction:column;gap:10px}.bottom-strip{align-items:flex-start;flex-direction:column}.header-actions .button-text{display:none}.footer{padding:0 15px}.footer span:first-child{max-width:70%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.readout{gap:6px}}
-@media(max-width:580px){.app{grid-template-rows:66px minmax(0,1fr) 30px}.layout{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.sidebar{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:13px;border-right:0;border-bottom:1px solid var(--line);max-height:235px}.sidebar .desktop-only{display:none}.sidebar section{min-width:0}.sidebar .section-label{margin-bottom:7px}.sidebar .dimension-section{grid-column:2;grid-row:1/3}.dimensions{gap:6px}.number-field input{font-size:1.1rem;padding:9px 0}.dimension-actions{flex-wrap:wrap;gap:6px}.dimension-actions button{padding:6px;font-size:.75rem}.workspace{padding:12px;gap:9px}.workspace-title p{display:none}.workspace-head{flex-direction:row;align-items:center;gap:8px}.workspace-title h2{font-size:.875rem;margin:0}.status{font-size:.72rem;padding:7px}.header-actions{gap:6px}.header-actions button{padding:8px}.brand p{font-size:.58rem}.brand h1{font-size:1rem}.brand{gap:9px}.brand-icon{width:31px;height:31px}.bottom-strip{min-height:24px}.readout{font-size:.7rem}.readout strong{font-size:.95rem}.bottom-strip .quiet{display:none}.dialog-header{padding:20px 18px 0}.dialog-body{padding:16px 18px}.dialog-footer{padding:15px 18px;flex-wrap:wrap}.cal-area{padding:23px 15px;min-height:210px}.cal-detail{flex-wrap:wrap}.cal-card-inner{padding:16px}.focus .layout{grid-template-rows:minmax(0,1fr)}.footer{font-size:.65rem}.help{display:none}}
+@media(max-width:580px){.app{grid-template-rows:66px minmax(0,1fr) 30px}.layout{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.sidebar{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:13px;border-right:0;border-bottom:1px solid var(--line);max-height:235px}.sidebar .desktop-only{display:none}.sidebar section{min-width:0}.sidebar .section-label{margin-bottom:7px}.sidebar .dimension-section{grid-column:2;grid-row:1/3}.dimensions{gap:6px}.number-field input{font-size:1.1rem;padding:9px 0}.dimension-actions{flex-wrap:wrap;gap:6px}.dimension-actions button{padding:6px;font-size:.75rem}.workspace{padding:12px;gap:9px}.workspace-title p{display:none}.workspace-head{flex-direction:row;align-items:center;gap:8px}.workspace-title h2{font-size:.875rem;margin:0}.header-actions{gap:6px}.header-actions button{padding:8px}.brand p{font-size:.58rem}.brand h1{font-size:1rem}.brand{gap:9px}.brand-icon{width:31px;height:31px}.bottom-strip{min-height:24px}.readout{font-size:.7rem}.readout strong{font-size:.95rem}.bottom-strip .quiet{display:none}.dialog-header{padding:20px 18px 0}.dialog-body{padding:16px 18px}.dialog-footer{padding:15px 18px;flex-wrap:wrap}.cal-area{padding:23px 15px;min-height:210px}.cal-detail{flex-wrap:wrap}.cal-card-inner{padding:16px}.focus .layout{grid-template-rows:minmax(0,1fr)}.footer{font-size:.65rem}.help{display:none}}
 .cal-tabs{max-width:none;display:grid;grid-template-columns:repeat(4,1fr)}.cal-tabs button{font-size:.875rem;padding:10px 5px}.cal-options[hidden],.screen-params[hidden],.cal-area[hidden],.cal-controls[hidden],.cal-detail[hidden]{display:none}.custom-length{display:block}.coin-options{margin-bottom:18px}.select-field{width:100%;appearance:none;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:11px 35px 11px 12px;font-size:.875rem;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}.select-field option,.select-field optgroup{background:var(--panel);color:var(--text)}.cal-explanation{font-size:.8rem;line-height:1.8;color:var(--muted);margin:9px 0 0}.cal-card.coin{border-radius:50%;background:color-mix(in srgb,var(--accent) 5%,transparent);margin:0 10px 22px 0}.cal-card.coin .cal-card-inner{display:grid;place-items:center;padding:3px}.cal-card.coin .card-brand,.cal-card.coin .card-chip{display:none}.coin-mark{display:none}.cal-card.coin .coin-mark{display:block;font-size:1.4rem;font-weight:500;opacity:.8}.cal-card.coin .card-size{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);font-size:.8rem}.screen-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px}.screen-grid .wide{grid-column:1/-1}.screen-grid .number-field input{font-size:1rem;padding:11px 0}.screen-grid .select-field+.number-field{margin-top:8px}.pixel-inputs{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:8px}.pixel-inputs>span{color:var(--muted)}.scale-entry{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:9px}.scale-entry .number-field{width:135px}.scale-entry[hidden]{display:none}.screen-result{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:16px 18px;margin-top:18px;font-size:.875rem;line-height:1.9;color:var(--accent);white-space:pre-line;font-variant-numeric:tabular-nums}.screen-result.invalid{color:var(--warn)}.screen-params .cal-explanation strong{color:var(--text);font-weight:550}.screen-dpr{font-size:.8rem;color:var(--muted);margin:9px 0 0}.cal-area.coin-area{justify-content:center}.save-label{display:inline}.cal-intro-compact{margin-bottom:15px}@media(max-width:580px){.cal-tabs{grid-template-columns:1fr 1fr}.screen-grid{gap:13px}.screen-grid .number-field input{font-size:.95rem}.dialog-header h2{font-size:1.15rem}.screen-result{padding:12px;font-size:.8rem}.cal-tabs button{font-size:.8rem}.select-field{font-size:.8rem}.screen-grid .screen-resolution{grid-column:1/-1}}
 .number-field>span{white-space:nowrap}.cal-area.coin-area{min-height:195px}
+.viewport.canvas-expanded,.viewport:fullscreen{position:fixed;inset:0;width:100vw;height:100dvh;min-height:0;max-width:none;max-height:none;margin:0;border:0;border-radius:0;z-index:50;flex:none}.viewport::backdrop{background:var(--field)}.canvas-toolbar{position:absolute;top:48px;right:14px;z-index:12;display:flex;align-items:flex-start;gap:7px;max-width:calc(100% - 64px);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px;box-shadow:0 6px 24px #0003}.canvas-toolbar[hidden],.canvas-controls[hidden],.canvas-controls [hidden],.canvas-notice[hidden]{display:none!important}.canvas-controls{display:flex;gap:7px;align-items:center;flex-wrap:wrap;max-width:410px}.canvas-toolbar button{font-size:.8rem;padding:8px 10px;white-space:nowrap}.canvas-toolbar button[aria-pressed=true]{color:var(--accent);border-color:var(--accent)}.canvas-info{display:flex;flex-direction:column;gap:2px;padding:0 5px;min-width:130px;font-variant-numeric:tabular-nums}.canvas-info strong{font-size:.9rem;font-weight:550}.canvas-info span{font-size:.7rem;color:var(--muted)}.canvas-toolbar .canvas-notice{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:15;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;font-size:.85rem;max-width:90%;line-height:1.6}.canvas-fullscreen>.toast{display:none}.canvas-toolbar.collapsed{background:var(--panel)}@media(max-width:580px){.canvas-toolbar{top:44px;right:8px;padding:6px;gap:5px}.canvas-toolbar button{padding:7px 8px;font-size:.75rem}.canvas-controls{max-width:220px}.canvas-info{flex-basis:100%;padding:2px}.canvas-info strong{font-size:.85rem}.bottom-strip #fullscreenBtn{display:inline-flex}}
+.shape-picker{margin-bottom:18px}.dimensions.circle-dimensions{grid-template-columns:1fr}#heightField[hidden],#rectangleActions[hidden]{display:none}.measure-box.circle{border-radius:50%}.measure-box.circle .handle[data-h=nw],.measure-box.circle .handle[data-h=ne],.measure-box.circle .handle[data-h=sw],.measure-box.circle .handle[data-h=se]{display:none}.measure-box.circle .box-height{display:none}.circle-diameter{display:none;position:absolute;top:50%;left:0;right:0;border-top:1px dashed var(--accent);opacity:.35;pointer-events:none}.measure-box.circle .circle-diameter{display:block}.measure-box.circle .box-center{height:0;transform:translateX(-50%)}.measure-box.circle .cross{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);margin:0}.measure-box.circle .box-center span{display:block;padding-top:19px}
+.brand-icon{border:0;border-radius:0}.brand-icon svg{display:block;width:100%;height:100%}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.length-entry{display:flex;gap:8px;min-width:0}.length-entry .number-field{flex:1;min-width:0}.length-unit{width:120px;flex-shrink:0}.density-unit{width:144px;flex-shrink:0}.screen-extra{margin-top:20px;border:1px solid var(--line);border-radius:10px;padding:15px}.screen-extra summary{cursor:pointer;font-size:.95rem;font-weight:550;color:var(--text)}.screen-extra summary span{font-size:.8rem;font-weight:400;color:var(--muted);margin-left:8px}.spec-heading{display:flex;gap:14px;justify-content:space-between;align-items:center;margin:12px 0 16px}.spec-heading p{margin:0;flex:1}.spec-unit{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:8px}.spec-unit select{width:115px}.aspect-input{background-image:none;padding-right:12px}.screen-checks{color:var(--warn);font-size:.8rem;line-height:1.8;white-space:pre-line;margin:10px 0 0}.screen-checks[hidden],#screenNativeWrap[hidden]{display:none}.spec-grid .number-field input{min-width:0}.screen-extra .pixel-inputs{margin-top:0}@media(max-width:580px){.screen-grid{grid-template-columns:minmax(0,1fr)}.screen-extra{padding:12px}.spec-heading{flex-wrap:wrap}.spec-heading p{flex-basis:100%}.screen-extra summary span{display:block;margin:6px 0 0}.spec-unit{margin-left:auto}.length-unit{width:112px}.density-unit{width:132px}}
+
+#calDialog[open]{display:flex;flex-direction:column}#calDialog .dialog-header,#calDialog .dialog-footer{flex-shrink:0}#calDialog .dialog-header{padding-bottom:14px}#calDialog .dialog-body{overflow-y:auto;min-height:0}#calDialog .dialog-footer{background:var(--panel)}
+
+.length-entry>.select-field:first-child{flex:1;min-width:0}
+
+#languageBtn{min-width:65px;font-weight:550;white-space:nowrap}html[lang="en"] .cal-tabs button{font-size:.8rem}html[lang="en"] .cal-tabs{grid-template-columns:1.15fr .65fr .8fr 1.4fr}html[lang="en"] .dialog-footer .row{flex-shrink:0}@media(max-width:700px){.topbar{padding:0 12px;gap:8px}.offline{display:none}.header-actions{gap:6px}.header-actions #focusBtn .button-text{display:none}}@media(max-width:580px){html[lang="en"] .cal-tabs{grid-template-columns:1fr 1fr}#languageBtn{min-width:52px;padding:8px}.header-actions #focusBtn{display:none}html[lang="en"] .brand h1{font-size:.9rem}.brand{gap:7px}.brand p{display:none}}@media(max-width:390px){.topbar{padding:0 8px}.brand-icon{width:27px;height:27px}.header-actions #calibrateBtn svg{display:none}.header-actions #calibrateBtn{font-size:.8rem}}
 </style>
 </head>
 <body>
@@ -31,21 +43,28 @@
 </defs></svg>
 <div class="app">
  <header class="topbar">
-  <div class="brand"><div class="brand-icon"><svg class="ico"><use href="#i-ruler"/></svg></div><div><h1>屏幕尺子</h1><p>REAL SIZE · ALWAYS AT HAND</p></div></div>
-  <div class="header-actions"><span class="offline">本地运行 · 无需联网</span><button class="quiet" id="themeBtn" aria-label="切换明暗背景" title="切换明暗背景"><svg><use href="#i-sun"/></svg></button><button id="focusBtn" class="quiet" title="收起工具栏，扩大测量区"><svg><use href="#i-expand"/></svg><span class="button-text">专注测量</span></button><button class="primary" id="calibrateBtn"><svg><use href="#i-cal"/></svg>校准屏幕</button></div>
+  <div class="brand"><div class="brand-icon" title="个人标识"><svg role="img" aria-labelledby="personalMarkTitle" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none"><title id="personalMarkTitle">个人标识</title><rect x="12" y="12" width="488" height="488" rx="112" fill="#101E2C"/><path d="M125 126H263C331 126 367 150 367 197 367 222 355 242 334 254 362 268 378 292 378 321 378 365 343 390 269 390H125L174 341H268C302 341 318 333 318 314 318 295 302 287 268 287H227L278 238C301 236 310 226 310 210 310 188 294 178 263 178H177Z" fill="#67DCCF"/><path d="M96 218H244L200 262H96ZM96 284H178L134 328H96Z" fill="#E9BA70"/><path d="M258 126H295L346 177H309Z" fill="#EAF8EE"/></svg></div><div><h1>屏幕尺子</h1><p>REAL SIZE · ALWAYS AT HAND</p></div></div>
+  <div class="header-actions"><span class="offline">本地运行 · 无需联网</span><button class="quiet" id="languageBtn" type="button" aria-label="Switch to English" title="Switch to English">English</button><button class="quiet" id="themeBtn" aria-label="切换明暗背景" title="切换明暗背景"><svg><use href="#i-sun"/></svg></button><button id="focusBtn" class="quiet" title="收起工具栏，扩大测量区"><svg><use href="#i-expand"/></svg><span class="button-text">专注测量</span></button><button class="primary" id="calibrateBtn"><svg><use href="#i-cal"/></svg>校准屏幕</button></div>
  </header>
  <main class="layout">
   <aside class="sidebar" aria-label="测量设置">
    <section><h2 class="section-label">显示单位<span class="section-meta">UNIT</span></h2><div class="segmented" id="units" aria-label="显示单位"><button data-unit="mm" aria-pressed="true">毫米 mm</button><button data-unit="cm" aria-pressed="false">厘米 cm</button><button data-unit="in" aria-pressed="false">英寸 in</button></div></section>
-   <section class="dimension-section"><h2 class="section-label">测量框尺寸<span class="section-meta">SIZE</span></h2><div class="dimensions"><label><span class="field-label">宽度</span><span class="number-field"><input id="widthInput" type="number" min="1" max="2000" step="0.1" value="80" aria-label="测量框宽度"><span class="unit-label">mm</span></span></label><label><span class="field-label">高度</span><span class="number-field"><input id="heightInput" type="number" min="1" max="2000" step="0.1" value="60" aria-label="测量框高度"><span class="unit-label">mm</span></span></label></div><div class="row dimension-actions"><button id="squareBtn" aria-pressed="false" title="开启后宽高相同">正方形</button><button id="swapBtn" title="交换宽度和高度"><svg><use href="#i-swap"/></svg>旋转</button></div><div class="row dimension-actions"><button id="centerBtn"><svg><use href="#i-center"/></svg>居中</button><button id="lockBtn" aria-pressed="false"><svg><use href="#i-lock"/></svg><span>锁定</span></button></div></section>
+   <section class="dimension-section">
+    <h2 class="section-label">测量形状<span class="section-meta">SHAPE</span></h2>
+    <div class="segmented shape-picker" aria-label="测量形状"><button id="rectangleShapeBtn" aria-pressed="true">方框</button><button id="circleShapeBtn" aria-pressed="false">圆形</button></div>
+    <h2 class="section-label">测量尺寸<span class="section-meta">SIZE</span></h2>
+    <div class="dimensions" id="dimensionFields"><label><span class="field-label" id="widthLabel">宽度</span><span class="number-field"><input id="widthInput" type="number" min="1" max="2000" step="0.1" value="80" aria-label="测量框宽度"><span class="unit-label">mm</span></span></label><label id="heightField"><span class="field-label">高度</span><span class="number-field"><input id="heightInput" type="number" min="1" max="2000" step="0.1" value="60" aria-label="测量框高度"><span class="unit-label">mm</span></span></label></div>
+    <div class="row dimension-actions" id="rectangleActions"><button id="squareBtn" aria-pressed="false" title="开启后宽高相同">正方形</button><button id="swapBtn" title="交换宽度和高度"><svg><use href="#i-swap"/></svg>旋转</button></div>
+    <div class="row dimension-actions"><button id="centerBtn"><svg><use href="#i-center"/></svg>居中</button><button id="lockBtn" aria-pressed="false"><svg><use href="#i-lock"/></svg><span>锁定</span></button></div>
+   </section>
    <section><h2 class="section-label">常用尺寸<span class="section-meta">mm</span></h2><div class="presets"><button data-size="30,30">30 × 30</button><button data-size="50,80">50 × 80</button><button data-size="100,100">100 × 100</button></div></section>
    <section class="desktop-only"><h2 class="section-label">测量区外观</h2><div class="setting"><span>显示网格</span><button id="gridBtn" class="switch" role="switch" aria-label="显示网格" aria-checked="true"></button></div><div class="setting"><span>中心标记</span><button id="crossBtn" class="switch" role="switch" aria-label="显示中心标记" aria-checked="true"></button></div><div class="setting"><span>边框颜色</span><div class="swatches"><button class="swatch" data-color="mint" style="--swatch:#91efbb" aria-label="绿色边框" aria-pressed="true"></button><button class="swatch" data-color="blue" style="--swatch:#81bcff" aria-label="蓝色边框" aria-pressed="false"></button><button class="swatch" data-color="orange" style="--swatch:#ffbc80" aria-label="橙色边框" aria-pressed="false"></button></div></div></section>
    <div class="help desktop-only"><p>拖动框内，移动测量框</p><p>拖动角点或边点，调整尺寸</p><p><kbd>方向键</kbd> 微调 0.1 mm</p><p><kbd>Shift</kbd> + <kbd>方向键</kbd> 移动 1 mm</p><p><kbd>F</kbd> 专注模式 · <kbd>Esc</kbd> 退出</p></div>
   </aside>
   <section class="workspace" aria-label="实物测量区">
-   <div class="workspace-head"><div class="workspace-title"><h2>把物品放到屏幕前，直接比一比。</h2><p>以边框外沿为尺寸边界，网格和刻度随校准同步。</p></div><button class="status" id="statusBtn">未校准 · 尺寸为估算</button></div>
-   <div class="viewport" id="viewport"><div class="origin" id="axisUnit">mm</div><canvas class="ruler-x" id="rulerX" aria-label="水平刻度尺"></canvas><canvas class="ruler-y" id="rulerY" aria-label="垂直刻度尺"></canvas><div class="stage" id="stage"><div class="measure-box" id="measureBox" tabindex="0" role="group" aria-label="可拖动的测量框"><div class="box-width" id="boxWidth"></div><div class="box-height" id="boxHeight"></div><div class="box-center"><div class="cross"></div><span id="boxHint">拖动移动<br>拖动角点调整大小</span></div><button class="handle" data-h="nw" aria-label="调整左上角" tabindex="-1"></button><button class="handle" data-h="n" aria-label="调整上边" tabindex="-1"></button><button class="handle" data-h="ne" aria-label="调整右上角" tabindex="-1"></button><button class="handle" data-h="e" aria-label="调整右边" tabindex="-1"></button><button class="handle" data-h="se" aria-label="调整右下角" tabindex="-1"></button><button class="handle" data-h="s" aria-label="调整下边" tabindex="-1"></button><button class="handle" data-h="sw" aria-label="调整左下角" tabindex="-1"></button><button class="handle" data-h="w" aria-label="调整左边" tabindex="-1"></button></div></div></div>
-   <div class="bottom-strip"><div class="readout"><span>宽 × 高</span><strong id="mainReadout">80.0 × 60.0 mm</strong><span class="divider"></span><span id="secondaryReadout">8.00 × 6.00 cm</span></div><button class="quiet small" id="fullscreenBtn"><svg><use href="#i-expand"/></svg><span>全屏显示</span></button></div>
+   <div class="workspace-head"><div class="workspace-title"><h2>把物品放到屏幕前，直接比一比。</h2><p>以边框外沿为尺寸边界，网格和刻度随校准同步。</p></div></div>
+   <div class="viewport" id="viewport"><div class="canvas-toolbar" id="canvasToolbar" role="toolbar" aria-label="全屏测量工具" hidden><div class="canvas-controls" id="canvasControls"><div class="canvas-info"><strong id="canvasReadout"></strong></div><button id="canvasModeBtn">定点测量</button><button id="canvasShapeBtn" class="quiet small">圆形</button><button id="canvasSnapBtn" aria-label="全屏吸附网格" aria-pressed="false" hidden>吸附网格</button></div><button id="canvasToggleBtn" aria-controls="canvasControls" aria-expanded="true">收起工具</button><button id="canvasExitBtn" aria-label="退出测量区全屏">退出全屏</button></div><div class="canvas-notice" id="canvasNotice" role="status" hidden></div><div class="origin" id="axisUnit">mm</div><canvas class="ruler-x" id="rulerX" aria-label="水平刻度尺"></canvas><canvas class="ruler-y" id="rulerY" aria-label="垂直刻度尺"></canvas><div class="stage" id="stage"><div class="measure-box" id="measureBox" tabindex="0" role="group" aria-label="可拖动的测量框"><div class="circle-diameter" aria-hidden="true"></div><div class="box-width" id="boxWidth"></div><div class="box-height" id="boxHeight"></div><div class="box-center"><div class="cross"></div><span id="boxHint">拖动移动<br>拖动角点调整大小</span></div><button class="handle" data-h="nw" aria-label="调整左上角" tabindex="-1"></button><button class="handle" data-h="n" aria-label="调整上边" tabindex="-1"></button><button class="handle" data-h="ne" aria-label="调整右上角" tabindex="-1"></button><button class="handle" data-h="e" aria-label="调整右边" tabindex="-1"></button><button class="handle" data-h="se" aria-label="调整右下角" tabindex="-1"></button><button class="handle" data-h="s" aria-label="调整下边" tabindex="-1"></button><button class="handle" data-h="sw" aria-label="调整左下角" tabindex="-1"></button><button class="handle" data-h="w" aria-label="调整左边" tabindex="-1"></button></div></div></div>
+   <div class="bottom-strip"><div class="readout"><span id="measureReadoutLabel">宽 × 高</span><strong id="mainReadout">80.0 × 60.0 mm</strong><span class="divider"></span><span id="secondaryReadout">8.00 × 6.00 cm</span></div><button class="quiet small" id="fullscreenBtn"><svg><use href="#i-expand"/></svg><span>测量区全屏</span></button></div>
    <div class="warning" id="warning" role="status" hidden></div>
   </section>
  </main>
@@ -58,12 +77,30 @@
   <div class="segmented cal-tabs" aria-label="选择校准方式"><button id="screenTab" aria-pressed="false">屏幕尺寸 / 分辨率</button><button id="coinTab" aria-pressed="false">硬币</button><button id="cardTab" aria-pressed="true">银行卡</button><button id="customTab" aria-pressed="false">直尺 / 已知长度</button></div>
   <div class="screen-params" id="screenParams" hidden>
    <div class="screen-grid">
-    <div><label class="field-label" for="screenSizePreset">常见屏幕尺寸</label><select class="select-field" id="screenSizePreset" aria-label="常见屏幕尺寸"><option value="13.3">13.3 英寸</option><option value="14">14 英寸</option><option value="15.6">15.6 英寸</option><option value="16">16 英寸</option><option value="21.5">21.5 英寸</option><option value="23.8">23.8 英寸</option><option value="24" selected>24 英寸</option><option value="27">27 英寸</option><option value="31.5">31.5 英寸</option><option value="32">32 英寸</option><option value="34">34 英寸 · 超宽屏</option><option value="42">42 英寸</option><option value="43">43 英寸</option><option value="48">48 英寸</option><option value="49">49 英寸 · 超宽屏</option><option value="55">55 英寸</option><option value="custom">自定义尺寸</option></select><label class="field-label" for="screenDiagonal" style="margin-top:12px">有效显示区域的对角线</label><span class="number-field"><input id="screenDiagonal" aria-label="屏幕对角线英寸" type="number" min="3" max="150" step="0.1" value="24"><span>英寸</span></span></div>
+    <div><label class="field-label" for="screenSizePreset">常见屏幕尺寸（选填）</label><div class="length-entry"><select class="select-field" id="screenSizePreset" aria-label="常见屏幕尺寸"><option value="13.3">13.3 英寸</option><option value="14">14 英寸</option><option value="15.6">15.6 英寸</option><option value="16">16 英寸</option><option value="21.5">21.5 英寸</option><option value="23.8">23.8 英寸</option><option value="24" selected>24 英寸</option><option value="27">27 英寸</option><option value="31.5">31.5 英寸</option><option value="32">32 英寸</option><option value="34">34 英寸 · 超宽屏</option><option value="42">42 英寸</option><option value="43">43 英寸</option><option value="48">48 英寸</option><option value="49">49 英寸 · 超宽屏</option><option value="55">55 英寸</option><option value="custom">自填规格 / 不选预设</option></select><select class="select-field length-unit" id="screenSizeUnit" aria-label="常见屏幕尺寸单位"><option value="in">英寸 in</option><option value="cm">厘米 cm</option><option value="mm">毫米 mm</option></select></div><p class="cal-explanation">也可选择“自填规格”，使用下方已知尺寸。</p></div>
     <div class="screen-resolution"><label class="field-label" for="screenResolution">当前屏幕输出分辨率</label><select class="select-field" id="screenResolution" aria-label="屏幕分辨率"><option value="1366,768">1366 × 768</option><option value="1920,1080" selected>1920 × 1080 · FHD</option><option value="1920,1200">1920 × 1200</option><option value="2560,1440">2560 × 1440 · QHD</option><option value="2560,1600">2560 × 1600</option><option value="2880,1800">2880 × 1800</option><option value="3840,2160">3840 × 2160 · 4K UHD</option><option value="2560,1080">2560 × 1080 · 超宽屏</option><option value="3440,1440">3440 × 1440 · 超宽屏</option><option value="3840,1600">3840 × 1600 · 超宽屏</option><option value="5120,1440">5120 × 1440 · 超宽屏</option><option value="5120,2160">5120 × 2160</option><option value="6016,3384">6016 × 3384</option><option value="7680,4320">7680 × 4320 · 8K</option><option value="custom">自定义分辨率</option></select><div class="pixel-inputs"><label><span class="field-label">水平像素</span><span class="number-field"><input id="screenPixelWidth" type="number" min="320" max="32768" step="1" value="1920" aria-label="屏幕水平像素"></span></label><span>×</span><label><span class="field-label">垂直像素</span><span class="number-field"><input id="screenPixelHeight" type="number" min="320" max="32768" step="1" value="1080" aria-label="屏幕垂直像素"></span></label></div></div>
     <div class="wide"><label class="field-label" for="screenScaleMode">显示缩放换算</label><select class="select-field" id="screenScaleMode" aria-label="屏幕缩放换算方式"><option value="auto">自动适配当前系统与浏览器缩放（推荐）</option><option value="manual">手动填写总缩放比例</option></select><p class="screen-dpr" id="screenDpr"></p><div class="scale-entry" id="screenScaleWrap" hidden><span class="number-field"><input id="screenScaleInput" type="number" min="25" max="1000" step="1" value="100" aria-label="总缩放百分比"><span>%</span></span><span class="cal-explanation">例：系统 150% × 浏览器 100% = 150%</span></div></div>
    </div>
+
+   <details class="screen-extra" open>
+    <summary>补充显示器规格 <span>选填 · 可按说明书填写</span></summary>
+    <div class="spec-heading"><p class="cal-explanation">知道哪项就填哪项，可直接用可视尺寸或画面宽高计算。</p><label class="spec-unit">规格长度单位<select class="select-field" id="screenSpecUnit" aria-label="补充规格长度单位"><option value="mm">毫米 mm</option><option value="cm">厘米 cm</option><option value="in">英寸 in</option></select></label></div>
+    <div class="screen-grid spec-grid">
+     <label><span class="field-label">可视对角线（可选）</span><span class="number-field"><input id="screenVisibleDiagonal" type="number" step="any" min="0" placeholder="例如 685" aria-label="可视对角线"><span id="visibleDiagonalUnit">mm</span></span></label>
+     <label><span class="field-label">画面宽高比（可选）</span><input class="select-field aspect-input" id="screenAspectRatio" type="text" inputmode="text" list="screenAspectOptions" placeholder="例如 16:9" aria-label="画面宽高比"><datalist id="screenAspectOptions"><option value="16:9"></option><option value="16:10"></option><option value="21:9"></option><option value="32:9"></option><option value="4:3"></option><option value="9:16"></option></datalist></label>
+     <label><span class="field-label">画面宽度（可选）</span><span class="number-field"><input id="screenPhysicalWidth" type="number" step="any" min="0" placeholder="例如 596.736" aria-label="有效画面宽度"><span id="physicalWidthUnit">mm</span></span></label>
+     <label><span class="field-label">画面高度（可选）</span><span class="number-field"><input id="screenPhysicalHeight" type="number" step="any" min="0" placeholder="例如 335.664" aria-label="有效画面高度"><span id="physicalHeightUnit">mm</span></span></label>
+     <label><span class="field-label">水平点距 H（可选）</span><span class="number-field"><input id="screenPitchX" type="number" step="any" min="0" placeholder="例如 0.2331" aria-label="水平点距"><span id="pitchXUnit">mm</span></span></label>
+     <label><span class="field-label">垂直点距 V（可选）</span><span class="number-field"><input id="screenPitchY" type="number" step="any" min="0" placeholder="例如 0.2331" aria-label="垂直点距"><span id="pitchYUnit">mm</span></span></label>
+     <label><span class="field-label">像素密度（可选）</span><div class="length-entry"><span class="number-field"><input id="screenDensity" type="number" step="any" min="0" placeholder="可留空" aria-label="面板像素密度"></span><select class="select-field density-unit" id="screenDensityUnit" aria-label="像素密度单位"><option value="ppmm">px / mm</option><option value="ppcm">px / cm</option><option value="ppi">PPI · px / in</option></select></div></label>
+     <label><span class="field-label">点距 / 密度所用分辨率</span><select class="select-field" id="screenNativeMode" aria-label="面板原生分辨率来源"><option value="unknown">暂不清楚 · 暂不使用点距和密度</option><option value="current">当前输出就是面板原生分辨率</option><option value="custom">另填面板原生分辨率</option></select></label>
+     <div class="wide" id="screenNativeWrap" hidden><div class="pixel-inputs"><label><span class="field-label">面板原生水平像素</span><span class="number-field"><input id="screenNativeWidth" type="number" min="320" max="32768" step="1" placeholder="例如 2560" aria-label="面板原生水平像素"></span></label><span>×</span><label><span class="field-label">面板原生垂直像素</span><span class="number-field"><input id="screenNativeHeight" type="number" min="320" max="32768" step="1" placeholder="例如 1440" aria-label="面板原生垂直像素"></span></label></div></div>
+    </div>
+    <p class="cal-explanation">请按当前横竖方向填写规格。宽或高只填一项时，另一项按宽高比推算。点距对应面板原生像素；若系统降低了输出分辨率，请另填原生分辨率。亮度和面板类型不影响尺寸换算。</p>
+   </details>
    <div class="screen-result" id="screenResult" role="status"></div>
-   <p class="cal-explanation"><strong>输入对角线，不包含边框；分辨率请按系统显示设置填写。</strong>参数校准依赖标称尺寸和显示缩放，保存后标记为“参数估算”。需要更精确时，可以再用硬币或直尺对齐。</p>
+   <p class="screen-checks" id="screenChecks" role="status" hidden></p>
+   <p class="cal-explanation"><strong>所有补充规格均选填，画面尺寸不包含边框。</strong>优先使用画面宽高，其次为点距或像素密度、可视对角线、常见屏幕尺寸；其余已填规格用于交叉核对。参数估算仍可用实物进一步校准。</p>
   </div>
   <div class="cal-options coin-options" id="coinWrap" hidden><label class="field-label" for="coinSelect">币种 / 面额 / 版本</label><select class="select-field" id="coinSelect" aria-label="校准硬币种类"><optgroup label="人民币 CNY"><option value="cny-1-2019">1 元 · 2019 版小号菊花 · 22.25 mm</option><option value="cny-1-1999">1 元 · 1999 版大号菊花 · 25.00 mm</option><option value="cny-05">5 角 · 荷花 · 20.50 mm</option><option value="cny-01">1 角 · 兰花（2005 / 2019 版）· 19.00 mm</option></optgroup><optgroup label="美元 USD"><option value="usd-25">25 美分 · Quarter · 24.26 mm</option><option value="usd-10">10 美分 · Dime · 17.91 mm</option><option value="usd-5">5 美分 · Nickel · 21.21 mm</option><option value="usd-1">1 美分 · Penny · 19.05 mm</option></optgroup><optgroup label="欧元 EUR"><option value="eur-2">2 欧元 · 25.75 mm</option><option value="eur-1">1 欧元 · 23.25 mm</option></optgroup></select><p class="cal-explanation" id="coinInfo"></p></div>
   <label class="custom-length" id="customLengthWrap" hidden><span class="field-label">对比的实际长度</span><span class="number-field"><input id="referenceLength" type="number" min="1" max="300" step="0.1" value="100" aria-label="校准参考长度"><span>mm</span></span></label>
@@ -75,9 +112,355 @@
 </dialog>
 <div class="toast" id="toast" role="status" hidden></div>
 <script>
+// I18N-START
+// Inlined into the offline HTML. Language changes update text without replacing controls.
+window.RulerI18n = (() => {
+ 'use strict';
+ const storageKey = 'screen-ruler-language';
+ const english = {
+  '屏幕尺子 · 实物尺寸对比':'Screen Ruler · Real-size comparison',
+  '屏幕尺子':'Screen Ruler',
+  '个人标识':'Personal mark',
+  '可离线使用的屏幕实物尺子。校准屏幕后，拖动测量框对比物品的真实宽高。':'An offline screen ruler. Calibrate your display, then drag a measuring shape to compare real object dimensions.',
+  '本地运行 · 无需联网':'Local · Works offline',
+  '切换明暗背景':'Switch light / dark theme',
+  '收起工具栏，扩大测量区':'Hide the sidebar for more measuring space',
+  '专注测量':'Focus mode',
+  '显示工具栏':'Show tools',
+  '校准屏幕':'Calibrate screen',
+  '测量设置':'Measurement settings',
+  '显示单位':'Units',
+  '毫米 mm':'mm',
+  '厘米 cm':'cm',
+  '英寸 in':'in',
+  '测量形状':'Shape',
+  '方框':'Rectangle',
+  '圆形':'Circle',
+  '测量尺寸':'Dimensions',
+  '宽度':'Width',
+  '高度':'Height',
+  '直径':'Diameter',
+  '圆形直径':'Circle diameter',
+  '测量框宽度':'Rectangle width',
+  '测量框高度':'Rectangle height',
+  '正方形':'Square',
+  '开启后宽高相同':'Keep width and height equal',
+  '交换宽度和高度':'Swap width and height',
+  '旋转':'Rotate',
+  '居中':'Center',
+  '锁定':'Lock',
+  '已锁定':'Locked',
+  '常用尺寸':'Presets',
+  '测量区外观':'Appearance',
+  '显示网格':'Show grid',
+  '中心标记':'Center mark',
+  '显示中心标记':'Show center mark',
+  '边框颜色':'Outline color',
+  '绿色边框':'Green outline',
+  '蓝色边框':'Blue outline',
+  '橙色边框':'Orange outline',
+  '拖动框内，移动测量框':'Drag inside the shape to move it',
+  '拖动角点或边点，调整尺寸':'Drag a corner or edge handle to resize',
+  '方向键':'Arrow keys',
+  '微调 0.1 mm':'Move 0.1 mm',
+  '移动 1 mm':'Move 1 mm',
+  '专注模式 ·':'Focus mode ·',
+  '退出':'Exit',
+  '实物测量区':'Real-size measuring area',
+  '把物品放到屏幕前，直接比一比。':'Hold an object up to the screen to compare.',
+  '以边框外沿为尺寸边界，网格和刻度随校准同步。':'Measure to the outer edge. Grid and ruler marks follow your calibration.',
+  '全屏测量工具':'Fullscreen measuring tools',
+  '定点测量':'Point measurement',
+  '形状对比':'Shape comparison',
+  '吸附网格':'Snap to grid',
+  '全屏吸附网格':'Snap to grid in fullscreen',
+  '收起工具':'Hide tools',
+  '展开工具':'Show tools',
+  '退出全屏':'Exit fullscreen',
+  '退出测量区全屏':'Exit measuring fullscreen',
+  '水平刻度尺':'Horizontal ruler',
+  '垂直刻度尺':'Vertical ruler',
+  '可拖动的测量框':'Draggable measuring shape',
+  '拖动移动':'Drag to move',
+  '拖动角点调整大小':'Drag handles to resize',
+  '拉动圆周点调整直径':'Drag circle handles to resize',
+  '拖动与键盘微调已锁定':'Dragging and keyboard movement are locked',
+  '拖动移动<br>拉动圆周点调整直径':'Drag to move<br>Drag circle handles to resize',
+  '拖动移动<br>拖动角点调整大小':'Drag to move<br>Drag handles to resize',
+  '调整左上角':'Resize top-left corner',
+  '调整上边':'Resize top edge',
+  '调整右上角':'Resize top-right corner',
+  '调整右边':'Resize right edge',
+  '调整右下角':'Resize bottom-right corner',
+  '调整下边':'Resize bottom edge',
+  '调整左下角':'Resize bottom-left corner',
+  '调整左边':'Resize left edge',
+  '上':'top',
+  '下':'bottom',
+  '左':'left',
+  '右':'right',
+  '调整圆形{side}端直径':'Resize circle from the {side}',
+  '调整{side}边':'Resize {side} edge',
+  '圆形测量，直径 {diameter} {unit}。拖动圆周控制点调整直径，方向键微调位置。':'Circle, diameter {diameter} {unit}. Drag a circle handle to resize; use arrow keys to move.',
+  '测量框，宽 {width} {unit}，高 {height} {unit}。方向键可微调位置。':'Rectangle, width {width} {unit}, height {height} {unit}. Use arrow keys to move.',
+  '宽 × 高':'Width × height',
+  '总长度 {total} · {summary}':'Total {total} · {summary}',
+  '0 点':'0 points',
+  '测量区全屏':'Fullscreen',
+  '首次使用请先校准；换显示器或改变浏览器缩放后，需要重新确认。':'Calibrate before use. Recheck after changing displays or browser zoom.',
+  '让屏幕上的尺寸，对应真实尺寸。':'Match the screen to real dimensions.',
+  '关闭校准':'Close calibration',
+  '把一张标准银行卡放在屏幕前，调整下方轮廓，直到左右边缘与卡片完全重合。对齐宽度即可。':'Hold a standard bank card up to the screen. Adjust the outline until its left and right edges match the card.',
+  '把一张标准银行卡放在屏幕前，调整下方轮廓，直到左右外边缘与卡片完全重合。对齐宽度即可。':'Hold a standard bank card up to the screen. Adjust the outline until its outer left and right edges match the card.',
+  '用直尺或已知长度的物品对齐下方线段。先输入实际长度，再调整线段，让两端与实物刻度重合。':'Use a ruler or an object of known length. Enter its actual length, then adjust the line until both ends match.',
+  '选择手边硬币的币种与版本，将硬币放在屏幕前，调整圆形轮廓，让圆周的最外缘与硬币重合。':'Choose your coin and version. Hold it up to the screen and adjust the circle until its outer edge matches the coin.',
+  '选择当前输出分辨率，再填写你知道的尺寸。补充规格均选填，填写后自动计算并交叉核对。':'Choose the current output resolution and enter any dimensions you know. Extra specifications are optional and are cross-checked automatically.',
+  '选择校准方式':'Choose a calibration method',
+  '屏幕尺寸 / 分辨率':'Display / resolution',
+  '硬币':'Coin',
+  '银行卡':'Bank card',
+  '直尺 / 已知长度':'Ruler / known length',
+  '常见屏幕尺寸（选填）':'Screen size (optional)',
+  '常见屏幕尺寸':'Screen-size preset',
+  '常见屏幕尺寸单位':'Screen-size units',
+  '自填规格 / 不选预设':'Custom specifications / no preset',
+  '也可选择“自填规格”，使用下方已知尺寸。':'Choose custom specifications to use the dimensions below.',
+  '当前屏幕输出分辨率':'Current output resolution',
+  '屏幕分辨率':'Display resolution',
+  '自定义分辨率':'Custom resolution',
+  '超宽屏':'Ultrawide',
+  '水平像素':'Horizontal pixels',
+  '垂直像素':'Vertical pixels',
+  '屏幕水平像素':'Display horizontal pixels',
+  '屏幕垂直像素':'Display vertical pixels',
+  '显示缩放换算':'Display scaling',
+  '屏幕缩放换算方式':'Display scaling method',
+  '自动适配当前系统与浏览器缩放（推荐）':'Automatic system and browser scaling (recommended)',
+  '手动填写总缩放比例':'Enter total scaling manually',
+  '总缩放百分比':'Total scaling percentage',
+  '例：系统 150% × 浏览器 100% = 150%':'Example: system 150% × browser 100% = 150%',
+  '补充显示器规格':'Additional display specifications',
+  '选填 · 可按说明书填写':'Optional · Check your display specifications',
+  '知道哪项就填哪项，可直接用可视尺寸或画面宽高计算。':'Enter whichever values you know. Visible diagonal or display dimensions can be used directly.',
+  '规格长度单位':'Length units',
+  '补充规格长度单位':'Specification length units',
+  '可视对角线（可选）':'Visible diagonal (optional)',
+  '画面宽高比（可选）':'Aspect ratio (optional)',
+  '画面宽度（可选）':'Display width (optional)',
+  '画面高度（可选）':'Display height (optional)',
+  '水平点距 H（可选）':'Horizontal pixel pitch H (optional)',
+  '垂直点距 V（可选）':'Vertical pixel pitch V (optional)',
+  '像素密度（可选）':'Pixel density (optional)',
+  '点距 / 密度所用分辨率':'Resolution for pitch / density',
+  '暂不清楚 · 暂不使用点距和密度':'Unknown · Exclude pitch and density',
+  '当前输出就是面板原生分辨率':'Current output is the native resolution',
+  '另填面板原生分辨率':'Enter native resolution separately',
+  '面板原生水平像素':'Native horizontal pixels',
+  '面板原生垂直像素':'Native vertical pixels',
+  '请按当前横竖方向填写规格。宽或高只填一项时，另一项按宽高比推算。点距对应面板原生像素；若系统降低了输出分辨率，请另填原生分辨率。亮度和面板类型不影响尺寸换算。':'Enter specifications for the current screen orientation. If only width or height is given, the other is derived from the aspect ratio. Pixel pitch uses native panel pixels; enter the native resolution if output resolution is reduced. Brightness and panel type do not affect dimensions.',
+  '所有补充规格均选填，画面尺寸不包含边框。':'All extra specifications are optional. Display dimensions exclude the bezel.',
+  '优先使用画面宽高，其次为点距或像素密度、可视对角线、常见屏幕尺寸；其余已填规格用于交叉核对。参数估算仍可用实物进一步校准。':'Display dimensions take priority, followed by pixel pitch or density, visible diagonal, and screen-size presets. Other values are cross-checked. A physical reference can refine the calibration.',
+  '可视对角线':'Visible diagonal',
+  '画面宽高比':'Aspect ratio',
+  '画面宽度':'Display width',
+  '画面高度':'Display height',
+  '有效画面宽度':'Active display width',
+  '有效画面高度':'Active display height',
+  '水平点距':'Horizontal pixel pitch',
+  '垂直点距':'Vertical pixel pitch',
+  '可留空':'Optional',
+  '面板像素密度':'Panel pixel density',
+  '像素密度单位':'Pixel density units',
+  '面板原生分辨率来源':'Native resolution source',
+  '例如 {value}':'e.g. {value}',
+  '{size} 英寸':'{size} in',
+  '{size} {unit}（{inches} 英寸）':'{size} {unit} ({inches} in)',
+  '当前自动换算系数：{percent}%（包含浏览器缩放）':'Automatic scaling: {percent}% (includes browser zoom)',
+  '采用：{source}\n有效画面：{width} × {height} {unit}\n当前输出密度：{density} px / {unit} · 测量比例：{scale} px / mm':'Using: {source}\nActive display: {width} × {height} {unit}\nOutput density: {density} px / {unit} · Scale: {scale} px / mm',
+  '\n核对：其余已填规格一致（允许 1% 取整差）':'\nCross-check: other specifications agree (1% rounding tolerance)',
+  '画面宽高':'Display dimensions',
+  '画面宽度 + 宽高比':'Display width + aspect ratio',
+  '画面高度 + 宽高比':'Display height + aspect ratio',
+  '点距 + 原生分辨率':'Pixel pitch + native resolution',
+  '像素密度 + 原生分辨率':'Pixel density + native resolution',
+  '币种 / 面额 / 版本':'Currency / denomination / version',
+  '校准硬币种类':'Calibration coin',
+  '人民币 CNY':'Chinese yuan CNY',
+  '美元 USD':'US dollar USD',
+  '欧元 EUR':'Euro EUR',
+  '1 元 · 2019 版小号菊花 · 22.25 mm':'1 yuan · 2019 small chrysanthemum · 22.25 mm',
+  '1 元 · 1999 版大号菊花 · 25.00 mm':'1 yuan · 1999 large chrysanthemum · 25.00 mm',
+  '5 角 · 荷花 · 20.50 mm':'5 jiao · lotus · 20.50 mm',
+  '1 角 · 兰花（2005 / 2019 版）· 19.00 mm':'1 jiao · orchid (2005 / 2019) · 19.00 mm',
+  '25 美分 · Quarter · 24.26 mm':'25 cents · Quarter · 24.26 mm',
+  '10 美分 · Dime · 17.91 mm':'10 cents · Dime · 17.91 mm',
+  '5 美分 · Nickel · 21.21 mm':'5 cents · Nickel · 21.21 mm',
+  '1 美分 · Penny · 19.05 mm':'1 cent · Penny · 19.05 mm',
+  '2 欧元 · 25.75 mm':'2 euro · 25.75 mm',
+  '1 欧元 · 23.25 mm':'1 euro · 23.25 mm',
+  '人民币 1 元 · 2019 版小号菊花。与旧版 25 mm 大号硬币不同，请先确认版本。':'CNY 1 yuan, 2019 small chrysanthemum. This differs from the older 25 mm coin; check your version.',
+  '人民币 1 元 · 1999 版大号菊花。不要与 2019 版小号硬币或纪念币混用。':'CNY 1 yuan, 1999 large chrysanthemum. Do not use the smaller 2019 coin or a commemorative coin.',
+  '人民币荷花 5 角，适用 1999 版金黄色和 2019 版镍白色硬币；纪念币不适用。':'CNY lotus 5 jiao: 1999 gold-colored or 2019 nickel-colored circulating coins. Commemorative coins are not supported.',
+  '人民币兰花 1 角，适用 2005 / 2019 版；不适用旧菊花 1 角。':'CNY orchid 1 jiao, 2005 / 2019 versions. The older chrysanthemum 1 jiao is not supported.',
+  '美元 25 美分（Quarter）流通规格。请使用完整、未明显变形的硬币。':'US quarter circulating coin. Use an intact coin with no visible deformation.',
+  '美元 10 美分（Dime）流通规格。请按最外圆周对齐。':'US dime circulating coin. Match the outermost edge.',
+  '美元 5 美分（Nickel）流通规格。请按最外圆周对齐。':'US nickel circulating coin. Match the outermost edge.',
+  '美元 1 美分（Penny）标准直径。请按最外圆周对齐。':'US penny standard diameter. Match the outermost edge.',
+  '2 欧元流通规格，以外环最外缘为准。':'Circulating 2 euro coin. Match the outer edge of the outer ring.',
+  '1 欧元流通规格，以外环最外缘为准。':'Circulating 1 euro coin. Match the outer edge of the outer ring.',
+  '5角':'5 jiao',
+  '1角':'1 jiao',
+  '对比的实际长度':'Actual reference length',
+  '校准参考长度':'Calibration reference length',
+  '拖动调整校准轮廓的宽度':'Drag to adjust the calibration outline width',
+  '缩小校准轮廓':'Make calibration outline smaller',
+  '校准轮廓大小':'Calibration outline size',
+  '放大校准轮廓':'Make calibration outline larger',
+  '每毫米的屏幕像素':'Screen pixels per millimeter',
+  '拖动右侧把手，或用滑块 / 加减按钮微调':'Drag the right handle, or fine-tune with the slider / − and + buttons',
+  '请保持当前浏览器缩放与显示器不变。':'Keep the same display and browser zoom.',
+  '轮廓只按真实比例绘制，不会自动缩小。若右边缘被遮住，可改用较短的已知长度校准。':'The outline keeps its real scale and will not shrink to fit. If its right edge is hidden, use a shorter known length.',
+  '仅保存在此浏览器，无需上传任何信息':'Saved in this browser only. Nothing is uploaded.',
+  '取消':'Cancel',
+  '已对齐，保存校准':'Save calibration',
+  '使用屏幕参数并保存':'Save display calibration',
+  '直径 {diameter} mm':'Diameter {diameter} mm',
+  '浏览器不允许保存设置；本次使用仍然有效。':'This browser cannot save settings. They still apply for this session.',
+  '检测到缩放或屏幕环境变化，请重新校准后再测量。':'Display or zoom settings changed. Recalibrate before measuring.',
+  '测量框超出可见区域，尺寸保持不变。请全屏、收起工具栏，或减小尺寸。':'The shape extends beyond the visible area; its scale is unchanged. Use fullscreen, hide tools, or choose a smaller size.',
+  '请输入 1–2000 mm 范围内的尺寸。':'Enter a dimension between 1 and 2000 mm.',
+  '测量框已锁定，避免物品遮挡时误拖。':'The shape is locked to prevent accidental movement.',
+  '测量框已解锁。':'The shape is unlocked.',
+  '未能退出全屏，请按 Esc。':'Could not exit fullscreen. Press Esc.',
+  '测量区已铺满网页；按 F11 可隐藏浏览器边框。':'The measuring area fills the page. Press F11 to hide browser controls.',
+  '测量区已铺满网页；按 F11 可进入屏幕全屏。':'The measuring area fills the page. Press F11 for screen fullscreen.',
+  '有数值尚未填写完整，请补全数字或清空该项后再保存。':'A number is incomplete. Finish it or clear the field before saving.',
+  '水平和垂直分辨率请输入 320–32768 范围内的整数。':'Horizontal and vertical resolution must be whole numbers from 320 to 32768.',
+  '总缩放比例请输入 25%–1000%。':'Enter total scaling from 25% to 1000%.',
+  '{field}请输入有效的正数，或留空。':'Enter a valid positive value for {field}, or leave it blank.',
+  '请选择常见屏幕尺寸，或选择自填规格。':'Choose a screen-size preset or custom specifications.',
+  '像素密度请输入有效的正数，或留空。':'Enter a valid positive pixel density, or leave it blank.',
+  '宽高比请填 16:9、16:10 或 1.7778 这样的正数。':'Enter an aspect ratio such as 16:9, 16:10, or 1.7778.',
+  '宽高比请输入 0.1–10 范围内的比例。':'Enter an aspect ratio between 0.1 and 10.',
+  '请补全 320–32768 范围内的面板原生水平和垂直像素，或改为“暂不清楚”。':'Enter both native pixel dimensions from 320 to 32768, or choose Unknown.',
+  '点距 / 像素密度尚未参与计算：请确认当前输出就是原生分辨率，或另填面板原生分辨率。':'Pixel pitch / density is excluded until you confirm the current output is native or enter the native resolution.',
+  '请至少填写一种可用尺寸：可视对角线或常见屏幕尺寸、画面宽高中的一项，或已确认原生分辨率的点距 / 像素密度。':'Provide a visible diagonal or screen-size preset, a display width or height, or pixel pitch / density with a confirmed native resolution.',
+  '计算出的画面尺寸超出范围，请检查长度单位与面板原生分辨率。':'Calculated display dimensions are out of range. Check length units and native resolution.',
+  '当前输出分辨率与采用的画面宽高比不一致，无法使用统一比例。请按当前横竖方向填写宽高 / 点距，并确认输出铺满画面。':'Output resolution and display aspect ratio do not match, so a uniform scale cannot be used. Enter dimensions / pixel pitch for the current orientation and check that output fills the display.',
+  '{other}与{source}相差 {difference}%，请核对；当前采用{source}。':'{other} differs from {source} by {difference}%. Check the values; {source} is being used.',
+  '填写的宽高比与采用的画面宽高不一致，请核对；当前采用{source}。':'The entered aspect ratio differs from the display dimensions. Check the values; {source} is being used.',
+  '这些参数计算出的比例超出支持范围，请检查尺寸、分辨率和缩放比例。':'The calculated scale is out of range. Check dimensions, resolution, and scaling.',
+  '参考长度请输入 1–300 mm。':'Enter a reference length from 1 to 300 mm.',
+  '请先结束双指缩放，再进行校准。':'End pinch zoom before calibrating.',
+  '已按屏幕参数保存估算比例，可随时用实物进一步校准。':'Display-based calibration saved. You can refine it with a physical reference anytime.',
+  '校准已保存，可以开始对比实物尺寸。':'Calibration saved. You can now compare real object dimensions.',
+  '校准已生效，仅在本次打开时有效。':'Calibration applied for this session only.',
+  '屏幕环境已变化，请重新打开校准。':'Display settings changed. Reopen calibration.'
+ };
+ let language = 'zh';
+ try { if (localStorage.getItem(storageKey) === 'en') language = 'en'; } catch (_) {}
+ const listeners = new Set();
+ const textSources = new WeakMap();
+ const attributeSources = new WeakMap();
+ const doc = document;
+ function translate(source) {
+  if (Object.prototype.hasOwnProperty.call(english, source)) return english[source];
+  const inches = source.match(/^(\d+(?:\.\d+)?) 英寸(?: · 超宽屏)?$/);
+  if (inches) return inches[1] + ' in' + (source.endsWith('超宽屏') ? ' · Ultrawide' : '');
+  if (/^\d+ × \d+ · 超宽屏$/.test(source)) return source.replace('超宽屏', 'Ultrawide');
+  if (source.startsWith('例如 ')) return 'e.g. ' + source.slice(3);
+  return source;
+ }
+ function t(source, variables = {}) {
+  const template = language === 'en' ? translate(String(source)) : String(source);
+  return template.replace(/\{([a-zA-Z][\w]*)\}/g, (match, key) => Object.prototype.hasOwnProperty.call(variables, key) ? String(variables[key]) : match);
+ }
+ function translatable(source) { return /[\u3400-\u9fff]/.test(source); }
+ function withWhitespace(source) {
+  const match = source.match(/^(\s*)([\s\S]*?)(\s*)$/);
+  return match[1] + t(match[2]) + match[3];
+ }
+ function updateShell() {
+  doc.documentElement?.setAttribute('lang', language === 'en' ? 'en' : 'zh-CN');
+  doc.title = t('屏幕尺子 · 实物尺寸对比');
+  const button = doc.getElementById?.('languageBtn');
+  if (button) {
+   button.textContent = language === 'en' ? '中文' : 'English';
+   button.setAttribute('aria-label', language === 'en' ? 'Switch to Chinese' : '切换为英文');
+   button.setAttribute('title', language === 'en' ? 'Switch to Chinese' : '切换为英文');
+   button.setAttribute('lang', language === 'en' ? 'zh-CN' : 'en');
+  }
+ }
+ function translateText(node) {
+  const current = node.nodeValue;
+  if (typeof current !== 'string') return;
+  let record = textSources.get(node);
+  if (!record || (current !== record.last && current !== record.source)) {
+   if (!translatable(current)) { textSources.delete(node); return; }
+   record = { source: current, last: current };
+   textSources.set(node, record);
+  }
+  const next = withWhitespace(record.source);
+  if (current !== next) node.nodeValue = next;
+  record.last = next;
+ }
+ function translateAttribute(element, name) {
+  const current = element.getAttribute(name);
+  if (current === null) return;
+  let records = attributeSources.get(element);
+  if (!records) { records = new Map(); attributeSources.set(element, records); }
+  let record = records.get(name);
+  if (!record || (current !== record.last && current !== record.source)) {
+   if (!translatable(current)) { records.delete(name); return; }
+   record = { source: current, last: current };
+   records.set(name, record);
+  }
+  const next = withWhitespace(record.source);
+  if (current !== next) element.setAttribute(name, next);
+  record.last = next;
+ }
+ function apply(root = doc) {
+  // Node behavior checks use a small DOM; text traversal is a browser enhancement.
+  if (typeof doc.createTreeWalker === 'function') {
+   const walker = doc.createTreeWalker(root, 4);
+   let node;
+   while ((node = walker.nextNode())) {
+    let parent = node.parentElement, excluded = false;
+    while (parent) {
+     if (/^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA)$/i.test(parent.tagName) || parent.id === 'languageBtn') { excluded = true; break; }
+     parent = parent.parentElement;
+    }
+    if (!excluded) translateText(node);
+   }
+   const elements = [...(root.nodeType === 1 ? [root] : []), ...root.querySelectorAll('[title],[aria-label],[placeholder],optgroup[label],meta[name="description"]')];
+   for (const element of elements) {
+    if (element.id === 'languageBtn') continue;
+    for (const name of ['title', 'aria-label', 'placeholder']) translateAttribute(element, name);
+    if (element.tagName === 'OPTGROUP') translateAttribute(element, 'label');
+    if (element.tagName === 'META' && element.getAttribute('name') === 'description') translateAttribute(element, 'content');
+   }
+  }
+  updateShell();
+ }
+ function setLanguage(next) {
+  if (next !== 'en' && next !== 'zh') return;
+  if (next !== language) {
+   language = next;
+   try { localStorage.setItem(storageKey, language); } catch (_) {}
+   for (const listener of [...listeners]) listener(language);
+  }
+  apply();
+ }
+ const api = { t, getLanguage: () => language, setLanguage, onChange(listener) { listeners.add(listener); return () => listeners.delete(listener); }, apply };
+ apply();
+ return api;
+})();
+
+// I18N-END
 (() => {
  'use strict';
  const $ = id => document.getElementById(id);
+ const T=(message,values)=>window.RulerI18n.t(message,values);
  const KEY = 'screen-ruler-v1';
  const DEFAULT_SCALE = 96 / 25.4;
  const factors = {mm:1,cm:10,in:25.4};
@@ -99,43 +482,57 @@
  try { stored = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (_) {}
  const positive = (v, min, max, fallback) => Number.isFinite(Number(v)) && Number(v)>=min && Number(v)<=max ? Number(v) : fallback;
  const state = {w:positive(stored.w,1,2000,80),h:positive(stored.h,1,2000,60),unit:factors[stored.unit]?stored.unit:'mm',pmm:positive(stored.pmm,.5,20,DEFAULT_SCALE),calibration:stored.calibration || null,square:!!stored.square,locked:false,grid:stored.grid!==false,cross:stored.cross!==false,light:!!stored.light,color:colors[stored.color]?stored.color:'mint',x:60,y:70,focus:false};
- if (state.square) state.h = state.w;
+ state.shape=stored.shape==='circle'?'circle':'rectangle';
+ state.circleDiameter=positive(stored.circleDiameter,1,2000,null);
+ state.rectangle={w:positive(stored.rectangle?.w,1,2000,state.w),h:positive(stored.rectangle?.h,1,2000,state.h),square:!!stored.rectangle?.square};
+ if(state.rectangle.square)state.rectangle.h=state.rectangle.w;
+ if(state.shape==='circle')state.w=state.h=state.circleDiameter??state.w;
+ else if(state.square)state.h=state.w;
  let drag = null, centered = false, draft = state.pmm, calMode = ['card','custom','coin','screen'].includes(state.calibration?.method)?state.calibration.method:'card', timer, storageWorks = true;
  let stageW = 0, stageH = 0;
+ let canvasExpanded = false, nativeCanvasFullscreen = false, canvasControlsCollapsed = false;
  function signature(){return [screen.width,screen.height,window.devicePixelRatio || 1,screen.orientation?.type?.split('-')[0] || ''].join('|');}
  function isCalibrated(){return state.calibration?.signature === signature() && Math.abs((window.visualViewport?.scale || 1)-1)<.01;}
- function save(){try {localStorage.setItem(KEY,JSON.stringify({w:state.w,h:state.h,unit:state.unit,pmm:state.pmm,calibration:state.calibration,square:state.square,grid:state.grid,cross:state.cross,light:state.light,color:state.color}));} catch(_){if(storageWorks){storageWorks=false;toast('浏览器不允许保存设置；本次使用仍然有效。');}}}
- function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(timer);timer=setTimeout(()=>$('toast').hidden=true,3500);}
+ function save(){try {localStorage.setItem(KEY,JSON.stringify({w:state.w,h:state.h,unit:state.unit,pmm:state.pmm,calibration:state.calibration,square:state.square,grid:state.grid,cross:state.cross,light:state.light,color:state.color,shape:state.shape,circleDiameter:state.shape==='circle'?state.w:state.circleDiameter,rectangle:state.shape==='circle'?state.rectangle:{w:state.w,h:state.h,square:state.square}}));} catch(_){if(storageWorks){storageWorks=false;toast('浏览器不允许保存设置；本次使用仍然有效。');}}}
+ let toastSource='';
+ function toast(message){toastSource=message;$('toast').dataset.owner='main';$('toast').textContent=T(message);$('toast').hidden=false;$('canvasNotice').textContent=T(message);$('canvasNotice').hidden=!canvasExpanded;clearTimeout(timer);timer=setTimeout(()=>{$('toast').hidden=true;$('canvasNotice').hidden=true;},3500);}
  function formatted(mm,unit=state.unit){return (mm/factors[unit]).toFixed(unit==='mm'?1:2);}
  function setPressed(id,value){$(id).setAttribute('aria-pressed',String(value));}
  function inputValues(){for(const [id,key] of [['widthInput','w'],['heightInput','h']]){const el=$(id);if(document.activeElement!==el) el.value=formatted(state[key]);el.min=String(1/factors[state.unit]);el.max=String(2000/factors[state.unit]);el.step=state.unit==='mm'?'0.1':'0.01';}}
  function positionBox(){const pw=state.w*state.pmm, ph=state.h*state.pmm;state.x=Math.max(8,Math.min(state.x,Math.max(8,stageW-pw-12)));state.y=Math.max(8,Math.min(state.y,Math.max(8,stageH-ph-12)));}
  function centerBox(){state.x=Math.max(16,(stageW-state.w*state.pmm)/2);state.y=Math.max(38,(stageH-state.h*state.pmm)/2);positionBox();render();}
  function render(){
-  const b=$('measureBox'),pw=state.w*state.pmm,ph=state.h*state.pmm;
+  const b=$('measureBox'),pw=state.w*state.pmm,ph=state.h*state.pmm,circle=state.shape==='circle';
   b.style.width=pw+'px';b.style.height=ph+'px';b.style.left=state.x+'px';b.style.top=state.y+'px';
   b.classList.toggle('locked',state.locked);b.classList.toggle('compact',pw<170||ph<105);b.classList.toggle('no-center',!state.cross);b.classList.toggle('label-left',state.x+pw+105>stageW&&state.x>105);b.classList.toggle('label-height-inside',state.x+pw+105>stageW&&state.x<=105);b.classList.toggle('label-inside',state.y<34);
-  $('boxWidth').textContent=formatted(state.w)+' '+state.unit;$('boxHeight').textContent=formatted(state.h)+' '+state.unit;
-  b.setAttribute('aria-label',`测量框，宽 ${formatted(state.w)} ${state.unit}，高 ${formatted(state.h)} ${state.unit}。方向键可微调位置。`);
-  $('boxHint').innerHTML=state.locked?'拖动与键盘微调已锁定':'拖动移动<br>拖动角点调整大小';
-  $('mainReadout').textContent=`${formatted(state.w)} × ${formatted(state.h)} ${state.unit}`;
-  const secondary=state.unit==='cm'?'mm':'cm';$('secondaryReadout').textContent=`${formatted(state.w,secondary)} × ${formatted(state.h,secondary)} ${secondary}`;
+  b.classList.toggle('circle',circle);
+  $('boxWidth').textContent=(circle?'Φ ':'')+formatted(state.w)+' '+state.unit;$('boxHeight').textContent=formatted(state.h)+' '+state.unit;
+  b.setAttribute('aria-label',circle?T('圆形测量，直径 {diameter} {unit}。拖动圆周控制点调整直径，方向键微调位置。',{diameter:formatted(state.w),unit:state.unit}):T('测量框，宽 {width} {unit}，高 {height} {unit}。方向键可微调位置。',{width:formatted(state.w),height:formatted(state.h),unit:state.unit}));
+  $('boxHint').innerHTML=T(state.locked?'拖动与键盘微调已锁定':circle?'拖动移动<br>拉动圆周点调整直径':'拖动移动<br>拖动角点调整大小');
+  $('mainReadout').textContent=circle?`Φ ${formatted(state.w)} ${state.unit}`:`${formatted(state.w)} × ${formatted(state.h)} ${state.unit}`;
+  $('measureReadoutLabel').textContent=T(circle?'直径':'宽 × 高');
+  const secondary=state.unit==='cm'?'mm':'cm';$('secondaryReadout').textContent=circle?`Φ ${formatted(state.w,secondary)} ${secondary}`:`${formatted(state.w,secondary)} × ${formatted(state.h,secondary)} ${secondary}`;
+  $('widthLabel').textContent=T(circle?'直径':'宽度');$('widthInput').setAttribute('aria-label',T(circle?'圆形直径':'测量框宽度'));$('heightField').hidden=circle;$('rectangleActions').hidden=circle;$('dimensionFields').classList.toggle('circle-dimensions',circle);
+  setPressed('rectangleShapeBtn',!circle);setPressed('circleShapeBtn',circle);$('squareBtn').disabled=circle;$('swapBtn').disabled=circle;
+  document.querySelectorAll('[data-size]').forEach(el=>{const sizes=el.dataset.size.split(',');el.textContent=circle?'Φ '+sizes[0]:sizes.join(' × ');});
+  document.querySelectorAll('[data-h]').forEach(el=>{const side={n:'上',s:'下',e:'右',w:'左'}[el.dataset.h];if(side)el.setAttribute('aria-label',T(circle?'调整圆形{side}端直径':'调整{side}边',{side:T(side)}));});
   inputValues();document.querySelectorAll('.unit-label').forEach(el=>el.textContent=state.unit);
   document.querySelectorAll('[data-unit]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.unit===state.unit)));
-  setPressed('squareBtn',state.square);setPressed('lockBtn',state.locked);$('lockBtn').querySelector('span').textContent=state.locked?'已锁定':'锁定';
+  setPressed('squareBtn',state.square);setPressed('lockBtn',state.locked);$('lockBtn').querySelector('span').textContent=T(state.locked?'已锁定':'锁定');
   $('gridBtn').setAttribute('aria-checked',String(state.grid));$('crossBtn').setAttribute('aria-checked',String(state.cross));$('stage').classList.toggle('no-grid',!state.grid);
   $('stage').style.setProperty('--grid-small',state.pmm*5+'px');$('stage').style.setProperty('--grid-large',state.pmm*10+'px');
-  $('axisUnit').textContent=state.unit;const calibrated=isCalibrated(),estimated=state.calibration?.method==='screen';$('statusBtn').textContent=calibrated?(estimated?'参数估算 · '+(state.calibration.screen?.diagonal??'?')+'″':'已校准 · 实物比例'):'未校准 · 尺寸为估算';$('statusBtn').classList.toggle('calibrated',calibrated&&!estimated);
+  $('axisUnit').textContent=state.unit;const calibrated=isCalibrated();
   $('scaleReadout').textContent=`${state.pmm.toFixed(3)} px / mm`;
   const warnings=[];
   if(state.calibration&&!calibrated) warnings.push('检测到缩放或屏幕环境变化，请重新校准后再测量。');
   if($('stage').dataset.measureMode!=='points'&&(pw+24>stageW||ph+24>stageH)) warnings.push('测量框超出可见区域，尺寸保持不变。请全屏、收起工具栏，或减小尺寸。');
-  $('warning').textContent=warnings.join(' ');$('warning').hidden=!warnings.length;
+  $('warning').textContent=warnings.map(message=>T(message)).join(' ');$('warning').hidden=!warnings.length;
   document.body.classList.toggle('light',state.light);document.body.classList.toggle('focus',state.focus);
   const accent=colors[state.color][state.light?1:0];document.body.style.setProperty('--accent',accent);
   document.querySelectorAll('[data-color]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.color===state.color)));
-  $('focusBtn').querySelector('.button-text').textContent=state.focus?'显示工具栏':'专注测量';
+  $('focusBtn').querySelector('.button-text').textContent=T(state.focus?'显示工具栏':'专注测量');
   $('stage').dataset.pmm=String(state.pmm);$('stage').dataset.unit=state.unit;
+  syncCanvasControls();
  }
  function ruler(canvas,vertical){
   const length=vertical?stageH:stageW,thickness=36,dpr=window.devicePixelRatio||1;
@@ -153,27 +550,91 @@
  function drawRulers(){ruler($('rulerX'),false);ruler($('rulerY'),true);}
  function layout(){const r=$('stage').getBoundingClientRect();stageW=r.width;stageH=r.height;if(!centered){centered=true;centerBox();}else{positionBox();render();}drawRulers();}
  function changed(recenter=false){positionBox();render();if(recenter)centerBox();save();}
- function applySize(key,input){const value=Number(input.value)*factors[state.unit];if(!input.value.trim()||!Number.isFinite(value)||value<1||value>2000){input.value=formatted(state[key]);toast('请输入 1–2000 mm 范围内的尺寸。');return;}state[key]=Math.round(value*1000)/1000;if(state.square)state[key==='w'?'h':'w']=state[key];changed();}
+ function applySize(key,input){const value=Number(input.value)*factors[state.unit];if(!input.value.trim()||!Number.isFinite(value)||value<1||value>2000){input.value=formatted(state[key]);toast('请输入 1–2000 mm 范围内的尺寸。');return;}state[key]=Math.round(value*1000)/1000;if(state.square||state.shape==='circle')state[key==='w'?'h':'w']=state[key];changed();}
  $('widthInput').addEventListener('change',e=>applySize('w',e.target));$('heightInput').addEventListener('change',e=>applySize('h',e.target));
- for(const [id,key] of [['widthInput','w'],['heightInput','h']])$(id).addEventListener('input',e=>{const value=Number(e.target.value)*factors[state.unit];if(!e.target.value.trim()||!Number.isFinite(value)||value<1||value>2000)return;state[key]=Math.round(value*1000)/1000;if(state.square)state[key==='w'?'h':'w']=state[key];changed();});
+ for(const [id,key] of [['widthInput','w'],['heightInput','h']])$(id).addEventListener('input',e=>{const value=Number(e.target.value)*factors[state.unit];if(!e.target.value.trim()||!Number.isFinite(value)||value<1||value>2000)return;state[key]=Math.round(value*1000)/1000;if(state.square||state.shape==='circle')state[key==='w'?'h':'w']=state[key];changed();});
  for(const id of ['widthInput','heightInput'])$(id).addEventListener('keydown',e=>{if(e.key==='Enter')e.target.blur();});
  document.querySelectorAll('[data-unit]').forEach(el=>el.onclick=()=>{state.unit=el.dataset.unit;render();drawRulers();save();});
- document.querySelectorAll('[data-size]').forEach(el=>el.onclick=()=>{[state.w,state.h]=el.dataset.size.split(',').map(Number);state.square=state.w===state.h;changed(true);});
- $('squareBtn').onclick=()=>{state.square=!state.square;if(state.square)state.h=state.w;changed();};
- $('swapBtn').onclick=()=>{[state.w,state.h]=[state.h,state.w];changed();};$('centerBtn').onclick=()=>centerBox();
+ document.querySelectorAll('[data-size]').forEach(el=>el.onclick=()=>{const [w,h]=el.dataset.size.split(',').map(Number);state.w=w;state.h=state.shape==='circle'?w:h;if(state.shape!=='circle')state.square=w===h;changed(true);});
+ function setShape(shape){
+  if(shape!==state.shape){
+   if(state.shape==='circle')state.circleDiameter=state.w;else state.rectangle={w:state.w,h:state.h,square:state.square};
+   state.shape=shape;
+   if(shape==='circle')state.w=state.h=state.circleDiameter??state.w;else{state.w=state.rectangle.w;state.h=state.rectangle.h;state.square=state.rectangle.square;}
+   changed();
+  }
+  if($('stage').dataset.measureMode==='points')document.getElementById('boxModeBtn')?.click();
+ }
+ $('rectangleShapeBtn').onclick=()=>setShape('rectangle');$('circleShapeBtn').onclick=()=>setShape('circle');
+ $('squareBtn').onclick=()=>{if(state.shape==='circle')return;state.square=!state.square;if(state.square)state.h=state.w;changed();};
+ $('swapBtn').onclick=()=>{if(state.shape==='circle')return;[state.w,state.h]=[state.h,state.w];changed();};$('centerBtn').onclick=()=>centerBox();
  $('lockBtn').onclick=()=>{state.locked=!state.locked;render();toast(state.locked?'测量框已锁定，避免物品遮挡时误拖。':'测量框已解锁。');};
  $('gridBtn').onclick=()=>{state.grid=!state.grid;changed();};$('crossBtn').onclick=()=>{state.cross=!state.cross;changed();};
  document.querySelectorAll('[data-color]').forEach(el=>el.onclick=()=>{state.color=el.dataset.color;render();save();drawRulers();});
  $('themeBtn').onclick=()=>{state.light=!state.light;render();drawRulers();save();};
  function focusMode(value){state.focus=value;render();requestAnimationFrame(layout);}
  $('focusBtn').onclick=()=>focusMode(!state.focus);
- $('fullscreenBtn').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else toast('此浏览器不支持网页全屏，可按 F11。');}catch(_){toast('无法进入全屏，可按 F11，或使用专注测量。');}};
- document.addEventListener('fullscreenchange',()=>{$('fullscreenBtn').querySelector('span').textContent=document.fullscreenElement?'退出全屏':'全屏显示';requestAnimationFrame(layout);});
- $('measureBox').addEventListener('pointerdown',e=>{if(state.locked||e.button!==0)return;e.preventDefault();$('measureBox').focus({preventScroll:true});drag={id:e.pointerId,px:e.clientX,py:e.clientY,x:state.x,y:state.y,w:state.w*state.pmm,h:state.h*state.pmm,handle:e.target.closest('[data-h]')?.dataset.h||'',pmm:state.pmm};$('measureBox').setPointerCapture(e.pointerId);});
+ function setCanvasText(id,value){const translated=T(value);if($(id).textContent!==translated)$(id).textContent=translated;}
+ function syncCanvasControls(){
+  $('canvasToolbar').hidden=!canvasExpanded;
+  const fullscreenLabel=$('fullscreenBtn').querySelector('span'),fullscreenText=T(canvasExpanded?'退出测量区全屏':'测量区全屏');
+  if(fullscreenLabel.textContent!==fullscreenText)fullscreenLabel.textContent=fullscreenText;
+  if(!canvasExpanded)return;
+  const points=$('stage').dataset.measureMode==='points',snap=document.getElementById('snapGridBtn');
+  const total=points?document.getElementById('pointTotal'):null,summary=points?document.getElementById('pointSummary'):null;
+  setCanvasText('canvasReadout',points?T('总长度 {total} · {summary}',{total:total?.textContent||'0.0 '+state.unit,summary:summary?.textContent||T('0 点')}):T(state.shape==='circle'?'直径':'宽 × 高')+' '+$('mainReadout').textContent);
+  setCanvasText('canvasModeBtn',points?'形状对比':'定点测量');
+  $('canvasShapeBtn').hidden=points;setCanvasText('canvasShapeBtn',state.shape==='circle'?'方框':'圆形');
+  $('canvasSnapBtn').hidden=!points;
+  const pressed=snap?.getAttribute('aria-pressed')||'false';
+  if($('canvasSnapBtn').getAttribute('aria-pressed')!==pressed)$('canvasSnapBtn').setAttribute('aria-pressed',pressed);
+  $('canvasControls').hidden=canvasControlsCollapsed;
+  $('canvasToolbar').classList.toggle('collapsed',canvasControlsCollapsed);
+  setCanvasText('canvasToggleBtn',canvasControlsCollapsed?'展开工具':'收起工具');
+  $('canvasToggleBtn').setAttribute('aria-expanded',String(!canvasControlsCollapsed));
+ }
+ function setCanvasExpanded(value){
+  canvasExpanded=value;$('viewport').classList.toggle('canvas-expanded',value);document.body.classList.toggle('canvas-fullscreen',value);
+  if(!value)$('canvasNotice').hidden=true;
+  syncCanvasControls();requestAnimationFrame(layout);
+ }
+ async function exitCanvasFullscreen(){
+  if(document.fullscreenElement===$('viewport')){
+   try{await document.exitFullscreen();}catch(_){toast('未能退出全屏，请按 Esc。');return;}
+  }
+  setCanvasExpanded(false);$('fullscreenBtn').focus({preventScroll:true});
+ }
+ $('fullscreenBtn').onclick=async()=>{
+  if(canvasExpanded){await exitCanvasFullscreen();return;}
+  canvasControlsCollapsed=false;setCanvasExpanded(true);
+  try{if($('viewport').requestFullscreen)await $('viewport').requestFullscreen();else toast('测量区已铺满网页；按 F11 可隐藏浏览器边框。');}
+  catch(_){toast('测量区已铺满网页；按 F11 可进入屏幕全屏。');}
+ };
+ $('canvasExitBtn').onclick=exitCanvasFullscreen;
+ $('canvasToggleBtn').onclick=()=>{canvasControlsCollapsed=!canvasControlsCollapsed;syncCanvasControls();};
+ $('canvasModeBtn').onclick=()=>{const target=document.getElementById($('stage').dataset.measureMode==='points'?'boxModeBtn':'pointModeBtn');if(target)target.click();syncCanvasControls();};
+ $('canvasShapeBtn').onclick=()=>setShape(state.shape==='circle'?'rectangle':'circle');
+ $('canvasSnapBtn').onclick=()=>{document.getElementById('snapGridBtn')?.click();syncCanvasControls();};
+ document.addEventListener('fullscreenchange',()=>{
+  const active=document.fullscreenElement===$('viewport');
+  if(active)setCanvasExpanded(true);else if(nativeCanvasFullscreen)setCanvasExpanded(false);
+  nativeCanvasFullscreen=active;requestAnimationFrame(layout);
+ });
+ $('measureBox').addEventListener('pointerdown',e=>{if(state.locked||e.button!==0)return;const handle=e.target.closest('[data-h]')?.dataset.h||'';if(state.shape==='circle'&&handle.length>1)return;e.preventDefault();$('measureBox').focus({preventScroll:true});drag={id:e.pointerId,px:e.clientX,py:e.clientY,x:state.x,y:state.y,w:state.w*state.pmm,h:state.h*state.pmm,handle,pmm:state.pmm};$('measureBox').setPointerCapture(e.pointerId);});
  $('measureBox').addEventListener('pointermove',e=>{
   if(!drag||e.pointerId!==drag.id)return;
   const dx=e.clientX-drag.px,dy=e.clientY-drag.py,d=drag,min=state.pmm;
   if(!d.handle){state.x=d.x+dx;state.y=d.y+dy;positionBox();}
+  else if(state.shape==='circle'){
+   const cx=d.x+d.w/2,cy=d.y+d.h/2,horizontal=d.handle==='e'||d.handle==='w';
+   const delta=horizontal?(d.handle==='e'?dx:-dx):(d.handle==='s'?dy:-dy);
+   const limit=horizontal?Math.min(d.handle==='e'?stageW-d.x-12:d.x+d.w-8,2*(cy-8),2*(stageH-cy-12)):Math.min(d.handle==='s'?stageH-d.y-12:d.y+d.h-8,2*(cx-8),2*(stageW-cx-12));
+   const diameter=Math.max(min,Math.min(d.w+delta,Math.max(min,limit),2000*d.pmm));
+   state.w=state.h=diameter/d.pmm;
+   state.x=horizontal?(d.handle==='w'?d.x+d.w-diameter:d.x):cx-diameter/2;
+   state.y=horizontal?cy-diameter/2:(d.handle==='n'?d.y+d.h-diameter:d.y);
+   positionBox();
+  }
   else{
    let w=d.w,h=d.h;const west=d.handle.includes('w'),east=d.handle.includes('e'),north=d.handle.includes('n'),south=d.handle.includes('s');
    if(west)w=d.w-dx;if(east)w=d.w+dx;if(north)h=d.h-dy;if(south)h=d.h+dy;
@@ -187,6 +648,7 @@
  $('measureBox').addEventListener('pointerup',endDrag);$('measureBox').addEventListener('pointercancel',endDrag);$('measureBox').addEventListener('lostpointercapture',()=>{if(drag){drag=null;save();}});
  document.addEventListener('keydown',e=>{if($('calDialog').open)return;const editable=e.target.matches('input,select,textarea')||e.target.isContentEditable;if(editable)return;
   if(e.key.toLowerCase()==='f'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();focusMode(!state.focus);return;}
+  if(e.key==='Escape'&&canvasExpanded){e.preventDefault();exitCanvasFullscreen();return;}
   if(e.key==='Escape'&&state.focus){focusMode(false);return;}
   if($('stage').dataset.measureMode==='points')return;
   if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)||state.locked||e.ctrlKey||e.metaKey||e.altKey||e.target.closest('button'))return;
@@ -194,18 +656,64 @@
  });
  function currentCoin(){return coins[$('coinSelect').value]||coins['cny-1-2019'];}
  function referenceMM(){return calMode==='card'?85.6:calMode==='coin'?currentCoin().mm:positive($('referenceLength').value,1,300,100);}
+ const screenSpecFields=['screenVisibleDiagonal','screenPhysicalWidth','screenPhysicalHeight','screenPitchX','screenPitchY'];
+ const densityFactors={ppmm:1,ppcm:10,ppi:25.4};
+ let specUnit='mm',densityUnit='ppmm';
+ function screenSpecValues(){
+  return {sizePreset:$('screenSizePreset').value,sizeUnit:$('screenSizeUnit').value,unit:$('screenSpecUnit').value,visibleDiagonal:$('screenVisibleDiagonal').value,physicalWidth:$('screenPhysicalWidth').value,physicalHeight:$('screenPhysicalHeight').value,pitchX:$('screenPitchX').value,pitchY:$('screenPitchY').value,aspect:$('screenAspectRatio').value,density:$('screenDensity').value,densityUnit:$('screenDensityUnit').value,nativeMode:$('screenNativeMode').value,nativeWidth:$('screenNativeWidth').value,nativeHeight:$('screenNativeHeight').value};
+ }
  function screenEstimate(){
-  const diagonal=Number($('screenDiagonal').value),width=Number($('screenPixelWidth').value),height=Number($('screenPixelHeight').value),scaleMode=$('screenScaleMode').value==='manual'?'manual':'auto',manualPercent=Number($('screenScaleInput').value),ratio=scaleMode==='manual'?manualPercent/100:(window.devicePixelRatio||1);
-  if(!Number.isFinite(diagonal)||diagonal<3||diagonal>150)return {valid:false,error:'请输入 3–150 英寸范围内的有效屏幕对角线。'};
-  if(!Number.isInteger(width)||!Number.isInteger(height)||width<320||height<320||width>32768||height>32768)return {valid:false,error:'水平和垂直分辨率请输入 320–32768 范围内的整数。'};
-  if(!Number.isFinite(ratio)||ratio<.25||ratio>10)return {valid:false,error:'总缩放比例请输入 25%–1000%。'};
-  const pixels=Math.hypot(width,height),ppi=pixels/diagonal,pmm=ppi/25.4/ratio;
-  if(pmm<.5||pmm>20)return {valid:false,error:'这些参数计算出的比例超出支持范围，请检查尺寸、分辨率和缩放比例。'};
-  return {valid:true,diagonal,width,height,scaleMode,manualPercent,ratio,ppi,pmm,physicalW:width/ppi*25.4,physicalH:height/ppi*25.4};
+  const width=Number($('screenPixelWidth').value),height=Number($('screenPixelHeight').value),scaleMode=$('screenScaleMode').value==='manual'?'manual':'auto',manualPercent=Number($('screenScaleInput').value),ratio=scaleMode==='manual'?manualPercent/100:(window.devicePixelRatio||1),specs=screenSpecValues(),warnings=[];
+  const invalid=error=>({valid:false,error:T(error),warnings});
+  const numberFields=['screenPixelWidth','screenPixelHeight',...screenSpecFields,'screenDensity'];
+  if(scaleMode==='manual')numberFields.push('screenScaleInput');
+  if(specs.nativeMode==='custom')numberFields.push('screenNativeWidth','screenNativeHeight');
+  if(numberFields.some(id=>$(id).validity?.badInput))return invalid('有数值尚未填写完整，请补全数字或清空该项后再保存。');
+  if(!Number.isInteger(width)||!Number.isInteger(height)||width<320||height<320||width>32768||height>32768)return invalid('水平和垂直分辨率请输入 320–32768 范围内的整数。');
+  if(!Number.isFinite(ratio)||ratio<.25||ratio>10)return invalid('总缩放比例请输入 25%–1000%。');
+  let diagonal=null,visible=null,pw=null,ph=null,px=null,py=null,density=null,aspect=null,nativeW=null,nativeH=null;
+  const readLength=(id,unit,min,max,label)=>{const text=$(id).value.trim();if(text==='')return null;const value=Number(text)*factors[unit];if(!Number.isFinite(value)||value<min||value>max)throw Error(T('{field}请输入有效的正数，或留空。',{field:T(label)}));return value;};
+  try{
+   if(specs.sizePreset!=='custom'&&!knownScreenSizes.includes(specs.sizePreset))throw Error('请选择常见屏幕尺寸，或选择自填规格。');
+   diagonal=specs.sizePreset==='custom'?null:Number(specs.sizePreset)*25.4;
+   visible=readLength('screenVisibleDiagonal',specs.unit,76.2,3810,'可视对角线');
+   pw=readLength('screenPhysicalWidth',specs.unit,10,3810,'画面宽度');ph=readLength('screenPhysicalHeight',specs.unit,10,3810,'画面高度');
+   px=readLength('screenPitchX',specs.unit,.005,5,'水平点距');py=readLength('screenPitchY',specs.unit,.005,5,'垂直点距');
+   if(specs.density.trim()!==''){density=Number(specs.density)/densityFactors[specs.densityUnit];if(!Number.isFinite(density)||density<.2||density>200)throw Error('像素密度请输入有效的正数，或留空。');}
+   if(specs.aspect.trim()!==''){const parts=specs.aspect.trim().split(/\s*[:：/×xX]\s*/);if(parts.length>2||parts.some(p=>!/^\d+(\.\d+)?$/.test(p)))throw Error('宽高比请填 16:9、16:10 或 1.7778 这样的正数。');aspect=Number(parts[0])/(parts.length===2?Number(parts[1]):1);if(!Number.isFinite(aspect)||aspect<.1||aspect>10)throw Error('宽高比请输入 0.1–10 范围内的比例。');}
+   if(specs.nativeMode==='current'){nativeW=width;nativeH=height;}
+   if(specs.nativeMode==='custom'){nativeW=Number(specs.nativeWidth);nativeH=Number(specs.nativeHeight);if(![nativeW,nativeH].every(n=>Number.isInteger(n)&&n>=320&&n<=32768))throw Error('请补全 320–32768 范围内的面板原生水平和垂直像素，或改为“暂不清楚”。');}
+  }catch(error){return invalid(error.message);}
+  const shapeRatio=aspect||(nativeW?nativeW/nativeH:width/height),candidates=[];
+  const add=(source,w,h)=>{if(w===null&&h===null)return;candidates.push({source,w:w===null?h*shapeRatio:w,h:h===null?w/shapeRatio:h});};
+  add(pw!==null&&ph!==null?'画面宽高':pw!==null?'画面宽度 + 宽高比':'画面高度 + 宽高比',pw,ph);
+  if(nativeW){
+   if(px!==null||py!==null)add('点距 + 原生分辨率',px===null?null:px*nativeW,py===null?null:py*nativeH);
+   if(density!==null)add('像素密度 + 原生分辨率',nativeW/density,nativeH/density);
+  }else if(px!==null||py!==null||density!==null)warnings.push('点距 / 像素密度尚未参与计算：请确认当前输出就是原生分辨率，或另填面板原生分辨率。');
+  for(const [source,d] of [['可视对角线',visible],['常见屏幕尺寸',diagonal]])if(d!==null){const h=d/Math.hypot(shapeRatio,1);add(source,h*shapeRatio,h);}
+  if(!candidates.length)return invalid('请至少填写一种可用尺寸：可视对角线或常见屏幕尺寸、画面宽高中的一项，或已确认原生分辨率的点距 / 像素密度。');
+  const chosen=candidates[0],physicalW=chosen.w,physicalH=chosen.h,axisDifference=Math.abs((width/physicalW)/(height/physicalH)-1);
+  if(![physicalW,physicalH].every(n=>Number.isFinite(n)&&n>=10&&n<=3810))return invalid('计算出的画面尺寸超出范围，请检查长度单位与面板原生分辨率。');
+  if(axisDifference>.01)return invalid('当前输出分辨率与采用的画面宽高比不一致，无法使用统一比例。请按当前横竖方向填写宽高 / 点距，并确认输出铺满画面。');
+  for(const other of candidates.slice(1)){const diff=Math.max(Math.abs(other.w/physicalW-1),Math.abs(other.h/physicalH-1));if(diff>.01)warnings.push(T('{other}与{source}相差 {difference}%，请核对；当前采用{source}。',{other:T(other.source),source:T(chosen.source),difference:(diff*100).toFixed(1)}));}
+  if(aspect&&Math.abs(aspect/(physicalW/physicalH)-1)>.01)warnings.push(T('填写的宽高比与采用的画面宽高不一致，请核对；当前采用{source}。',{source:T(chosen.source)}));
+  const physicalDiagonal=Math.hypot(physicalW,physicalH),densityOutput=Math.hypot(width,height)/physicalDiagonal,ppi=densityOutput*25.4,pmm=densityOutput/ratio;
+  if(pmm<.5||pmm>20)return invalid('这些参数计算出的比例超出支持范围，请检查尺寸、分辨率和缩放比例。');
+  return {valid:true,diagonal:diagonal===null?physicalDiagonal/25.4:diagonal/25.4,width,height,scaleMode,manualPercent,ratio,ppi,pmm,physicalW,physicalH,source:chosen.source,warnings,specs,crossChecked:candidates.length>1};
+ }
+ function screenNumber(value){return String(Number(value.toPrecision(14)));}
+ function renderScreenUnits(){
+  const unit=$('screenSpecUnit').value;
+  for(const id of ['visibleDiagonalUnit','physicalWidthUnit','physicalHeightUnit','pitchXUnit','pitchYUnit'])$(id).textContent=unit;
+  const examples=[685,596.736,335.664,.2331,.2331];screenSpecFields.forEach((id,i)=>$(id).setAttribute('placeholder',T('例如 {value}',{value:screenNumber(examples[i]/factors[unit])})));
+  for(const option of $('screenSizePreset').options){if(option.value==='custom')continue;const inches=Number(option.value),current=$('screenSizeUnit').value;option.textContent=current==='in'?T('{size} 英寸',{size:inches}):T('{size} {unit}（{inches} 英寸）',{size:screenNumber(inches*25.4/factors[current]),unit:current,inches});}
  }
  function renderScreenEstimate(){
-  const result=screenEstimate();$('screenScaleWrap').hidden=$('screenScaleMode').value!=='manual';$('screenDpr').textContent='当前自动换算系数：'+((window.devicePixelRatio||1)*100).toFixed(1)+'%（包含浏览器缩放）';
-  $('screenResult').classList.toggle('invalid',!result.valid);$('screenResult').textContent=result.valid?`有效屏幕：${result.physicalW.toFixed(1)} × ${result.physicalH.toFixed(1)} mm\n像素密度：${result.ppi.toFixed(1)} PPI · 测量比例：${result.pmm.toFixed(3)} px / mm`:result.error;
+  renderScreenUnits();const result=screenEstimate();$('screenScaleWrap').hidden=$('screenScaleMode').value!=='manual';$('screenNativeWrap').hidden=$('screenNativeMode').value!=='custom';$('screenDpr').textContent=T('当前自动换算系数：{percent}%（包含浏览器缩放）',{percent:((window.devicePixelRatio||1)*100).toFixed(1)});
+  const unit=$('screenSpecUnit').value,number=n=>String(Number((n/factors[unit]).toFixed(unit==='mm'?3:unit==='cm'?4:5)));
+  $('screenResult').classList.toggle('invalid',!result.valid);$('screenResult').textContent=result.valid?T('采用：{source}\n有效画面：{width} × {height} {unit}\n当前输出密度：{density} px / {unit} · 测量比例：{scale} px / mm',{source:T(result.source),width:number(result.physicalW),height:number(result.physicalH),unit,density:(result.ppi/25.4*factors[unit]).toFixed(3),scale:result.pmm.toFixed(3)})+(result.crossChecked&&!result.warnings.length?T('\n核对：其余已填规格一致（允许 1% 取整差）'):''):result.error;
+  $('screenChecks').textContent=(result.warnings||[]).map(message=>T(message)).join('\n');$('screenChecks').hidden=!$('screenChecks').textContent;
   if(calMode==='screen'){$('saveCalBtn').disabled=!result.valid;if(result.valid)draft=result.pmm;}
   return result;
  }
@@ -214,27 +722,30 @@
   $('screenParams').hidden=physical;$('coinWrap').hidden=calMode!=='coin';$('customLengthWrap').hidden=calMode!=='custom';
   for(const id of ['calArea','physicalControls','physicalDetail','physicalNote'])$(id).hidden=!physical;
   for(const method of ['screen','coin','card','custom'])setPressed(method+'Tab',calMode===method);
-  $('saveCalBtn').disabled=false;$('saveCalLabel').textContent=physical?'已对齐，保存校准':'使用屏幕参数并保存';
-  const intros={card:'把一张标准银行卡放在屏幕前，调整下方轮廓，直到左右外边缘与卡片完全重合。对齐宽度即可。',custom:'用直尺或已知长度的物品对齐下方线段。先输入实际长度，再调整线段，让两端与实物刻度重合。',coin:'选择手边硬币的币种与版本，将硬币放在屏幕前，调整圆形轮廓，让圆周的最外缘与硬币重合。',screen:'没有参照物也可以开始：选择屏幕对角线尺寸和当前输出分辨率，自动计算屏幕比例。'};
-  $('calIntro').textContent=intros[calMode];
+  $('saveCalBtn').disabled=false;$('saveCalLabel').textContent=T(physical?'已对齐，保存校准':'使用屏幕参数并保存');
+  const intros={card:'把一张标准银行卡放在屏幕前，调整下方轮廓，直到左右外边缘与卡片完全重合。对齐宽度即可。',custom:'用直尺或已知长度的物品对齐下方线段。先输入实际长度，再调整线段，让两端与实物刻度重合。',coin:'选择手边硬币的币种与版本，将硬币放在屏幕前，调整圆形轮廓，让圆周的最外缘与硬币重合。',screen:'选择当前输出分辨率，再填写你知道的尺寸。补充规格均选填，填写后自动计算并交叉核对。'};
+  $('calIntro').textContent=T(intros[calMode]);
   if(!physical){renderScreenEstimate();return;}
   card.style.width=draft*referenceMM()+'px';card.style.height=(calMode==='card'?draft*53.98:calMode==='coin'?draft*coin.mm:80)+'px';card.classList.toggle('custom',calMode==='custom');card.classList.toggle('coin',calMode==='coin');$('calArea').classList.toggle('coin-area',calMode==='coin');
   $('calRange').max=String(Math.max(12,draft));$('calRange').value=String(draft);if(document.activeElement!==$('calScaleInput'))$('calScaleInput').value=draft.toFixed(3);
-  $('coinInfo').textContent=coin.note;$('coinMark').textContent=coin.mark;
-  $('referenceLabel').textContent=calMode==='card'?'85.60 × 53.98 mm':calMode==='coin'?'直径 '+coin.mm.toFixed(2)+' mm':referenceMM().toFixed(1)+' mm';
+  $('coinInfo').textContent=T(coin.note);$('coinMark').textContent=T(coin.mark);
+  $('referenceLabel').textContent=calMode==='card'?'85.60 × 53.98 mm':calMode==='coin'?T('直径 {diameter} mm',{diameter:coin.mm.toFixed(2)}):referenceMM().toFixed(1)+' mm';
  }
  function openCalibration(){draft=state.pmm;renderCalibration();$('calDialog').showModal();}
- for(const id of ['calibrateBtn','statusBtn'])$(id).onclick=openCalibration;
+ $('calibrateBtn').onclick=openCalibration;
  for(const id of ['closeCalBtn','cancelCalBtn'])$(id).onclick=()=>$('calDialog').close();
  for(const method of ['card','custom','screen','coin'])$(method+'Tab').onclick=()=>{calMode=method;renderCalibration();};
  $('coinSelect').addEventListener('change',renderCalibration);
  const knownScreenSizes=['13.3','14','15.6','16','21.5','23.8','24','27','31.5','32','34','42','43','48','49','55'];
  const knownResolutions=['1366,768','1920,1080','1920,1200','2560,1440','2560,1600','2880,1800','3840,2160','2560,1080','3440,1440','3840,1600','5120,1440','5120,2160','6016,3384','7680,4320'];
- function syncScreenPresets(){const d=String(Number($('screenDiagonal').value)),res=$('screenPixelWidth').value+','+$('screenPixelHeight').value;$('screenSizePreset').value=knownScreenSizes.includes(d)?d:'custom';$('screenResolution').value=knownResolutions.includes(res)?res:'custom';}
- $('screenSizePreset').addEventListener('change',()=>{if($('screenSizePreset').value!=='custom')$('screenDiagonal').value=$('screenSizePreset').value;else $('screenDiagonal').focus();renderScreenEstimate();});
+ function syncScreenPresets(){const res=$('screenPixelWidth').value+','+$('screenPixelHeight').value;$('screenResolution').value=knownResolutions.includes(res)?res:'custom';}
+ $('screenSizePreset').addEventListener('change',renderScreenEstimate);
  $('screenResolution').addEventListener('change',()=>{if($('screenResolution').value!=='custom')[$('screenPixelWidth').value,$('screenPixelHeight').value]=$('screenResolution').value.split(',');else $('screenPixelWidth').focus();renderScreenEstimate();});
- for(const id of ['screenDiagonal','screenPixelWidth','screenPixelHeight','screenScaleInput'])for(const event of ['input','change'])$(id).addEventListener(event,()=>{syncScreenPresets();renderScreenEstimate();});
- $('screenScaleMode').addEventListener('change',renderScreenEstimate);
+ for(const id of ['screenPixelWidth','screenPixelHeight','screenScaleInput',...screenSpecFields,'screenAspectRatio','screenDensity','screenNativeWidth','screenNativeHeight'])for(const event of ['input','change'])$(id).addEventListener(event,()=>{syncScreenPresets();renderScreenEstimate();});
+ for(const id of ['screenScaleMode','screenNativeMode','screenSizeUnit'])$(id).addEventListener('change',renderScreenEstimate);
+ function convertScreenInput(id,multiplier){const input=$(id);if(input.value.trim()!==''&&Number.isFinite(Number(input.value)))input.value=screenNumber(Number(input.value)*multiplier);}
+ $('screenSpecUnit').addEventListener('change',()=>{const next=$('screenSpecUnit').value;screenSpecFields.forEach(id=>convertScreenInput(id,factors[specUnit]/factors[next]));specUnit=next;renderScreenEstimate();});
+ $('screenDensityUnit').addEventListener('change',()=>{const next=$('screenDensityUnit').value;convertScreenInput('screenDensity',densityFactors[next]/densityFactors[densityUnit]);densityUnit=next;renderScreenEstimate();});
  $('referenceLength').addEventListener('change',()=>{const v=Number($('referenceLength').value);if(!Number.isFinite(v)||v<1||v>300){$('referenceLength').value='100';toast('参考长度请输入 1–300 mm。');}renderCalibration();});
  function setDraft(value){draft=Math.min(20,Math.max(.5,value));renderCalibration();}
  $('calRange').addEventListener('input',e=>setDraft(Number(e.target.value)));$('calMinus').onclick=()=>setDraft(draft-.005);$('calPlus').onclick=()=>setDraft(draft+.005);
@@ -247,7 +758,7 @@
   if(Math.abs((window.visualViewport?.scale||1)-1)>.01){toast('请先结束双指缩放，再进行校准。');return;}
   const estimate=calMode==='screen'?renderScreenEstimate():null;if(estimate&&!estimate.valid)return;
   state.pmm=draft;state.calibration={signature:signature(),at:new Date().toISOString(),method:calMode};
-  if(estimate)state.calibration.screen={diagonal:estimate.diagonal,width:estimate.width,height:estimate.height,scaleMode:estimate.scaleMode,manualPercent:estimate.manualPercent};
+  if(estimate)state.calibration.screen={diagonal:estimate.diagonal,width:estimate.width,height:estimate.height,scaleMode:estimate.scaleMode,manualPercent:estimate.manualPercent,source:estimate.source,specs:estimate.specs};
   if(calMode==='coin')state.calibration.coin=coins[$('coinSelect').value]?$('coinSelect').value:'cny-1-2019';
   $('calDialog').close();changed(true);drawRulers();toast(storageWorks?(calMode==='screen'?'已按屏幕参数保存估算比例，可随时用实物进一步校准。':'校准已保存，可以开始对比实物尺寸。'):'校准已生效，仅在本次打开时有效。');
  };
@@ -257,23 +768,85 @@
  function watchDpr(){const query=matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);query.addEventListener('change',()=>{environmentChange();watchDpr();},{once:true});}watchDpr();
  new ResizeObserver(layout).observe($('stage'));
  $('stage').addEventListener('ruler-mode-change',render);
+ if(typeof MutationObserver==='function'){
+  const canvasObserver=new MutationObserver(records=>{if(canvasExpanded&&records.some(record=>!$('canvasToolbar').contains(record.target)&&record.target!==$('canvasNotice')))syncCanvasControls();});
+  canvasObserver.observe($('viewport').parentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['aria-pressed','data-measure-mode']});
+ }
  const previousScreen=state.calibration?.screen;
- if(previousScreen){$('screenDiagonal').value=positive(previousScreen.diagonal,3,150,24);$('screenPixelWidth').value=positive(previousScreen.width,320,32768,1920);$('screenPixelHeight').value=positive(previousScreen.height,320,32768,1080);$('screenScaleMode').value=previousScreen.scaleMode==='manual'?'manual':'auto';$('screenScaleInput').value=positive(previousScreen.manualPercent,25,1000,100);}
+ if(previousScreen){
+  $('screenPixelWidth').value=positive(previousScreen.width,320,32768,1920);$('screenPixelHeight').value=positive(previousScreen.height,320,32768,1080);$('screenScaleMode').value=previousScreen.scaleMode==='manual'?'manual':'auto';$('screenScaleInput').value=positive(previousScreen.manualPercent,25,1000,100);
+  const specs=previousScreen.specs;let legacyInches=positive(previousScreen.diagonal,3,150,24);
+  if(specs&&typeof specs==='object'){
+   specUnit=factors[specs.unit]?specs.unit:'mm';densityUnit=densityFactors[specs.densityUnit]?specs.densityUnit:'ppmm';
+   $('screenSizeUnit').value=factors[specs.sizeUnit]?specs.sizeUnit:factors[specs.diagonalUnit]?specs.diagonalUnit:'in';$('screenSpecUnit').value=specUnit;$('screenDensityUnit').value=densityUnit;
+   const inputs={screenVisibleDiagonal:'visibleDiagonal',screenPhysicalWidth:'physicalWidth',screenPhysicalHeight:'physicalHeight',screenPitchX:'pitchX',screenPitchY:'pitchY',screenAspectRatio:'aspect',screenDensity:'density',screenNativeWidth:'nativeWidth',screenNativeHeight:'nativeHeight'};
+   for(const [id,key] of Object.entries(inputs))if(typeof specs[key]==='string'||typeof specs[key]==='number')$(id).value=String(specs[key]).slice(0,100);
+   $('screenNativeMode').value=['current','custom'].includes(specs.nativeMode)?specs.nativeMode:'unknown';
+   if(specs.sizePreset==='custom'||knownScreenSizes.includes(specs.sizePreset))legacyInches=specs.sizePreset==='custom'?null:Number(specs.sizePreset);
+   else if(typeof specs.diagonalValue==='string'||typeof specs.diagonalValue==='number')legacyInches=String(specs.diagonalValue).trim()===''?null:Number(specs.diagonalValue)*(factors[specs.diagonalUnit]||25.4)/25.4;
+  }
+  const preset=legacyInches===null?null:knownScreenSizes.find(value=>Math.abs(Number(value)-legacyInches)<1e-7);$('screenSizePreset').value=preset||'custom';
+  if(!preset&&Number.isFinite(legacyInches)&&legacyInches>0&&$('screenVisibleDiagonal').value==='')$('screenVisibleDiagonal').value=screenNumber(legacyInches*25.4/factors[specUnit]);
+  if(previousScreen.source==='标称对角线')previousScreen.source=preset?'常见屏幕尺寸':'可视对角线';
+ }
  else $('screenScaleInput').value=((window.devicePixelRatio||1)*100).toFixed(1);
- $('coinSelect').value=coins[state.calibration?.coin]?state.calibration.coin:'cny-1-2019';syncScreenPresets();
+ $('coinSelect').value=coins[state.calibration?.coin]?state.calibration.coin:'cny-1-2019';syncScreenPresets();renderScreenUnits();
+ $('languageBtn').onclick=()=>window.RulerI18n.setLanguage(window.RulerI18n.getLanguage()==='zh'?'en':'zh');
+ window.RulerI18n.onChange(()=>{render();if($('calDialog').open)renderCalibration();else renderScreenUnits();if(!$('toast').hidden&&$('toast').dataset.owner==='main'){$('toast').textContent=T(toastSource);$('canvasNotice').textContent=T(toastSource);}});
  render();requestAnimationFrame(layout);
 })();
 </script>
 <!-- POINT-MEASUREMENT-START -->
 <script>
 // This source is inlined into the offline HTML; it does not load any assets.
-function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
+function installPointMeasurement({stage, box, getScale, getUnit, toast, ensureGridVisible = () => {}, i18n = stage.ownerDocument.defaultView?.RulerI18n}) {
  const doc = stage.ownerDocument;
+ const english = {
+  '测量模式':'Measurement mode',
+  '形状对比':'Shape comparison',
+  '定点测量':'Point measurement',
+  '拖动形状移动，拉动控制点调整尺寸':'Drag the shape to move it; drag its handles to resize.',
+  '吸附网格':'Snap to grid',
+  '新建和拖动的点吸附到 5 mm 网格交点；已有点位保持原位。方向键移动一格，Shift 移动两格。':'New and dragged points snap to the 5 mm grid. Existing points stay in place. Arrow keys move one cell; Shift moves two.',
+  '撤销':'Undo',
+  '撤销上一步定点操作':'Undo the last point operation',
+  '删除点':'Delete point',
+  '删除选中的测量点':'Delete the selected measurement point',
+  '清空':'Clear',
+  '清空所有测量点':'Clear all measurement points',
+  '总长度':'Total length',
+  '任意两点直线距离':'Straight-line distance between any two points',
+  '两点直线':'Point-to-point',
+  '两点距离起点':'Distance start point',
+  '至':'to',
+  '两点距离终点':'Distance end point',
+  '多点距离与可拖动测量点':'Distances and draggable measurement points',
+  '定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。':'Point measurement area: click to add points, drag to move them, and use arrow keys to fine-tune the selected point.',
+  '最多可添加 50 个点。可删除点位，或清空后重新测量。':'You can add up to 50 points. Delete points, or clear them to start again.',
+  '点 {index}':'Point {index}',
+  '网格已隐藏，吸附已关闭。':'The grid is hidden. Snapping is now off.',
+  '测量点 {index}，横坐标 {x}，纵坐标 {y}。{movement}，Delete 删除。':'Measurement point {index}, x {x}, y {y}. {movement}; Delete to remove.',
+  '方向键按 5 毫米网格移动':'Arrow keys move by one 5 mm grid cell',
+  '方向键微调':'Arrow keys fine-tune the position',
+  '{points} 点 · {segments} 段':'{points} point{pointSuffix} · {segments} segment{segmentSuffix}',
+  '最近一段 {distance}':'Last segment {distance}',
+  '{outside} 个点超出可见区域。请扩大窗口；点位与距离保持不变。':'{outside} point{suffix} outside the visible area. Enlarge the window; positions and distances stay unchanged.',
+  '吸附 5 mm 网格；拖点调整，方向键移动一格':'Snap to the 5 mm grid; drag points or move one cell with arrow keys.',
+  '吸附 5 mm 网格；点击交点附近添加点':'Snap to the 5 mm grid; click near an intersection to add a point.',
+  '继续点击添加点；拖动圆点调整，方向键微调':'Click to add points; drag them or fine-tune with arrow keys.',
+  '在测量区连续点击定点，显示各段距离与总长度':'Click in the measurement area to add points and see segment distances and total length.'
+ };
+ function t(message, values = {}) {
+  const template = i18n?.getLanguage?.() === 'en' ? english[message] || message : message;
+  return template.replace(/\{(\w+)\}/g, (match, name) => Object.hasOwn(values, name) ? String(values[name]) : match);
+ }
  const NS = 'http://www.w3.org/2000/svg';
  const factors = {mm:1, cm:10, in:25.4};
  const points = [];
  const history = [];
  const pointNodes = new Map();
+ const GRID_MM = 5;
+ let snapEnabled = false;
  let active = false, selected = null, gesture = null, nextId = 1;
  let pairA = null, pairB = null, pairPinned = false, optionSignature = '';
  const workspace = stage.closest('.workspace');
@@ -310,6 +883,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  .pm-toolbar .pm-hint{font-size:.8rem;line-height:1.7;color:var(--muted);flex:1;min-width:180px;margin:0}
  .pm-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
  .pm-actions button{font-size:.8rem;padding:8px 10px}
+ .pm-actions button[aria-pressed=true]{color:var(--accent);border-color:var(--accent);background:var(--bg)}
  .pm-toolbar [hidden],.pm-readout[hidden],.pm-canvas[hidden]{display:none!important}
  .pm-readout{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:.8rem;line-height:1.6}
  .pm-readout strong{font-weight:550;font-size:1.15rem;color:var(--text);font-variant-numeric:tabular-nums}
@@ -341,25 +915,29 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  const toolbar = el('div', 'pm-toolbar');
  toolbar.id = 'pointToolbar';
  const modes = el('div', 'segmented pm-modes');
- modes.setAttribute('aria-label', '测量模式');
- const boxButton = button('方框对比');
+ modes.setAttribute('aria-label', t('测量模式'));
+ const boxButton = button(t('形状对比'));
  boxButton.id = 'boxModeBtn';
- const pointButton = button('定点测量');
+ const pointButton = button(t('定点测量'));
  pointButton.id = 'pointModeBtn';
  boxButton.setAttribute('aria-pressed', 'true');
  pointButton.setAttribute('aria-pressed', 'false');
  modes.append(boxButton, pointButton);
- const hint = el('p', 'pm-hint', '拖动框内移动，拖动角点调整尺寸');
+ const hint = el('p', 'pm-hint', t('拖动形状移动，拉动控制点调整尺寸'));
  hint.id = 'pointHelp';
  const actions = el('div', 'pm-actions');
  actions.hidden = true;
- const undoButton = button('撤销', '撤销上一步定点操作');
+ const snapButton = button(t('吸附网格'), t('吸附网格'));
+ snapButton.id = 'snapGridBtn';
+ snapButton.setAttribute('aria-pressed', 'false');
+ snapButton.title = t('新建和拖动的点吸附到 5 mm 网格交点；已有点位保持原位。方向键移动一格，Shift 移动两格。');
+ const undoButton = button(t('撤销'), t('撤销上一步定点操作'));
  undoButton.id = 'undoPointBtn';
- const deleteButton = button('删除点', '删除选中的测量点');
+ const deleteButton = button(t('删除点'), t('删除选中的测量点'));
  deleteButton.id = 'deletePointBtn';
- const clearButton = button('清空', '清空所有测量点');
+ const clearButton = button(t('清空'), t('清空所有测量点'));
  clearButton.id = 'clearPointsBtn';
- actions.append(undoButton, deleteButton, clearButton);
+ actions.append(snapButton, undoButton, deleteButton, clearButton);
  toolbar.append(modes, hint, actions);
  viewport.before(toolbar);
  const readout = el('div', 'pm-readout');
@@ -367,7 +945,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  readout.hidden = true;
  readout.setAttribute('role', 'status');
  readout.setAttribute('aria-live', 'polite');
- const totalLabel = el('span', '', '总长度');
+ const totalLabel = el('span', '', t('总长度'));
  const totalValue = el('strong', '', '0.0 mm');
  totalValue.id = 'pointTotal';
  const summary = el('span');
@@ -376,21 +954,21 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  lastValue.id = 'pointLast';
  const pair = el('div', 'pm-pair');
  pair.setAttribute('role', 'group');
- pair.setAttribute('aria-label', '任意两点直线距离');
- const pairTitle = el('span', '', '两点直线');
+ pair.setAttribute('aria-label', t('任意两点直线距离'));
+ const pairTitle = el('span', '', t('两点直线'));
  const pairFrom = el('select', 'select-field');
  pairFrom.id = 'pointPairFrom';
- pairFrom.setAttribute('aria-label', '两点距离起点');
- const pairSeparator = el('span', '', '至');
+ pairFrom.setAttribute('aria-label', t('两点距离起点'));
+ const pairSeparator = el('span', '', t('至'));
  const pairTo = el('select', 'select-field');
  pairTo.id = 'pointPairTo';
- pairTo.setAttribute('aria-label', '两点距离终点');
+ pairTo.setAttribute('aria-label', t('两点距离终点'));
  const pairValue = el('strong', '', '—');
  pairValue.id = 'pointPairDistance';
  pair.append(pairTitle, pairFrom, pairSeparator, pairTo, pairValue);
  readout.append(totalLabel, totalValue, summary, lastValue, pair);
  originalReadout.before(readout);
- const overlay = svg('svg', {class:'pm-canvas', 'aria-label':'多点距离与可拖动测量点', role:'group'});
+ const overlay = svg('svg', {class:'pm-canvas', 'aria-label':t('多点距离与可拖动测量点'), role:'group'});
  overlay.id = 'pointOverlay';
  overlay.setAttribute('hidden', '');
  const lineLayer = svg('g', {'aria-hidden':'true', 'pointer-events':'none'});
@@ -422,6 +1000,27 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   if (clamp) { x = Math.max(0, Math.min(rect.width, x)); y = Math.max(0, Math.min(rect.height, y)); }
   return {x, y};
  }
+ function snapAxis(value, extent) {
+  const step = GRID_MM * scale();
+  const last = Math.max(0, Math.floor((extent + 1e-7) / step));
+  return Math.max(0, Math.min(last, Math.round(value / step))) * step;
+ }
+ function fitPosition(position) {
+  const rect = bounds();
+  return snapEnabled ? {x:snapAxis(position.x, rect.width), y:snapAxis(position.y, rect.height)} : {
+   x:Math.max(0, Math.min(rect.width, position.x)),
+   y:Math.max(0, Math.min(rect.height, position.y))
+  };
+ }
+ function updateDraggedPoint(event) {
+  const position = local(event, false);
+  const dx = position.x - gesture.start.x, dy = position.y - gesture.start.y;
+  if (!gesture.moved && Math.hypot(dx, dy) < (snapEnabled ? Math.min(3, GRID_MM * scale() / 2) : .001)) return;
+  gesture.moved = true;
+  const point = findPoint(gesture.id);
+  if (!point) return;
+  Object.assign(point, fitPosition({x:gesture.x + dx, y:gesture.y + dy}));
+ }
  function capture(event) {
   try { stage.setPointerCapture(event.pointerId); } catch (_) {}
  }
@@ -452,7 +1051,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   box.setAttribute('aria-hidden', String(active));
   if (active) {
    stage.setAttribute('tabindex', '0');
-   stage.setAttribute('aria-label', '定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。');
+   stage.setAttribute('aria-label', t('定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。'));
   } else {
    if (originalTabindex === null) stage.removeAttribute('tabindex'); else stage.setAttribute('tabindex', originalTabindex);
    if (originalLabel === null) stage.removeAttribute('aria-label'); else stage.setAttribute('aria-label', originalLabel);
@@ -490,9 +1089,9 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   render();
  }
  function addPoint(position) {
-  if (points.length >= 50) { toast('最多可添加 50 个点。可删除点位，或清空后重新测量。'); return; }
+  if (points.length >= 50) { const message='最多可添加 50 个点。可删除点位，或清空后重新测量。'; toast(t(message), () => t(message)); return; }
   remember();
-  const point = {x:position.x, y:position.y, id:nextId++};
+  const point = {...fitPosition(position), id:nextId++};
   points.push(point);
   selected = point.id;
   render();
@@ -513,7 +1112,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
    const current = findPoint(point.id);
    if (!current) return;
    selected = current.id;
-   gesture = {kind:'move', pointerId:event.pointerId, start:local(event, false), before:snapshot(), x:current.x, y:current.y, id:current.id};
+   gesture = {kind:'move', pointerId:event.pointerId, start:local(event, false), before:snapshot(), x:current.x, y:current.y, id:current.id, moved:false};
    group.focus({preventScroll:true});
    capture(event);
    render();
@@ -541,7 +1140,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   return {total, last};
  }
  function renderPair() {
-  const signature = points.map(p => p.id).join(',');
+  const signature = (i18n?.getLanguage?.() || 'zh') + ':' + points.map(p => p.id).join(',');
   if (!points.length) { pairA = null; pairB = null; pairPinned = false; }
   if (!pairPinned) { pairA = points[0]?.id ?? null; pairB = points[points.length - 1]?.id ?? null; }
   if (!findPoint(pairA)) pairA = points[0]?.id ?? null;
@@ -549,7 +1148,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   if (signature !== optionSignature || !pairFrom.options.length) {
    optionSignature = signature;
    const makeOptions = () => points.map((point, index) => {
-    const option = el('option', '', '点 ' + (index + 1));
+    const option = el('option', '', t('点 {index}', {index:index + 1}));
     option.value = String(point.id);
     return option;
    });
@@ -562,22 +1161,42 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   const a = findPoint(pairA), b = findPoint(pairB);
   pairValue.textContent = a && b && points.length > 1 ? format(Math.hypot(b.x - a.x, b.y - a.y) / scale()) : '—';
  }
+ function translateControls() {
+  for (const [node, text] of [[boxButton,'形状对比'],[pointButton,'定点测量'],[snapButton,'吸附网格'],[undoButton,'撤销'],[deleteButton,'删除点'],[clearButton,'清空'],[totalLabel,'总长度'],[pairTitle,'两点直线'],[pairSeparator,'至']]) {
+   const value = t(text);
+   if (node.textContent !== value) node.textContent = value;
+  }
+  for (const [node, label] of [[modes,'测量模式'],[snapButton,'吸附网格'],[undoButton,'撤销上一步定点操作'],[deleteButton,'删除选中的测量点'],[clearButton,'清空所有测量点'],[pair,'任意两点直线距离'],[pairFrom,'两点距离起点'],[pairTo,'两点距离终点'],[overlay,'多点距离与可拖动测量点']]) {
+   const value = t(label);
+   if (node.getAttribute('aria-label') !== value) node.setAttribute('aria-label', value);
+  }
+  snapButton.title = t('新建和拖动的点吸附到 5 mm 网格交点；已有点位保持原位。方向键移动一格，Shift 移动两格。');
+  if (active) stage.setAttribute('aria-label', t('定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。'));
+ }
  function render() {
+  translateControls();
+  if (snapEnabled && stage.classList.contains('no-grid')) {
+   stopGesture(true);
+   snapEnabled = false;
+   const message='网格已隐藏，吸附已关闭。';toast(t(message), () => t(message));
+  }
+  snapButton.setAttribute('aria-pressed', String(snapEnabled));
   const distances = drawSegments();
   const remaining = new Set(points.map(p => p.id));
   for (const [id, node] of pointNodes) if (!remaining.has(id)) { node.group.remove(); pointNodes.delete(id); }
   for (let i = 0; i < points.length; i++) {
    const p = points[i], node = pointNodes.get(p.id) || createPointNode(p);
    node.group.setAttribute('transform', `translate(${p.x},${p.y})`);
-   node.group.setAttribute('aria-label', `测量点 ${i + 1}，横坐标 ${format(p.x / scale())}，纵坐标 ${format(p.y / scale())}。方向键微调，Delete 删除。`);
+   node.group.setAttribute('aria-label', t('测量点 {index}，横坐标 {x}，纵坐标 {y}。{movement}，Delete 删除。', {index:i + 1,x:format(p.x / scale()),y:format(p.y / scale()),movement:t(snapEnabled ? '方向键按 5 毫米网格移动' : '方向键微调')}));
    node.group.setAttribute('aria-pressed', String(selected === p.id));
    node.group.classList.toggle('selected', selected === p.id);
    node.group.classList.toggle('dragging', gesture?.kind === 'move' && gesture.id === p.id);
    node.number.textContent = String(i + 1);
   }
   totalValue.textContent = format(distances.total);
-  summary.textContent = `${points.length} 点 · ${Math.max(0, points.length - 1)} 段`;
-  lastValue.textContent = points.length > 1 ? '最近一段 ' + format(distances.last) : '';
+  const segments = Math.max(0, points.length - 1);
+  summary.textContent = t('{points} 点 · {segments} 段', {points:points.length,segments,pointSuffix:points.length === 1 ? '' : 's',segmentSuffix:segments === 1 ? '' : 's'});
+  lastValue.textContent = points.length > 1 ? t('最近一段 {distance}', {distance:format(distances.last)}) : '';
   renderPair();
   undoButton.disabled = !history.length;
   deleteButton.disabled = selected === null || !findPoint(selected);
@@ -585,14 +1204,21 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   const rect = bounds();
   const outside = points.filter(p => p.x < 0 || p.y < 0 || p.x > rect.width || p.y > rect.height).length;
   hint.classList.toggle('pm-overflow', active && outside > 0);
-  if (!active) hint.textContent = '拖动框内移动，拖动角点调整尺寸';
-  else if (outside) hint.textContent = `${outside} 个点超出可见区域。请扩大窗口；点位与距离保持不变。`;
-  else hint.textContent = points.length ? '继续点击添加点；拖动圆点调整，方向键微调' : '在测量区连续点击定点，显示各段距离与总长度';
+  if (!active) hint.textContent = t('拖动形状移动，拉动控制点调整尺寸');
+  else if (outside) hint.textContent = t('{outside} 个点超出可见区域。请扩大窗口；点位与距离保持不变。', {outside,suffix:outside === 1 ? ' is' : 's are'});
+  else if (snapEnabled) hint.textContent = t(points.length ? '吸附 5 mm 网格；拖点调整，方向键移动一格' : '吸附 5 mm 网格；点击交点附近添加点');
+  else hint.textContent = t(points.length ? '继续点击添加点；拖动圆点调整，方向键微调' : '在测量区连续点击定点，显示各段距离与总长度');
  }
  function layout() { render(); }
 
  boxButton.addEventListener('click', () => setMode(false));
  pointButton.addEventListener('click', () => setMode(true));
+ snapButton.addEventListener('click', () => {
+  stopGesture(true);
+  snapEnabled = !snapEnabled;
+  if (snapEnabled) ensureGridVisible();
+  render();
+ });
  undoButton.addEventListener('click', undo);
  deleteButton.addEventListener('click', deleteSelected);
  clearButton.addEventListener('click', clear);
@@ -612,16 +1238,13 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
    if (Math.hypot(position.x - gesture.start.x, position.y - gesture.start.y) > 5) gesture.moved = true;
    return;
   }
-  const point = findPoint(gesture.id);
-  if (!point) return;
-  const rect = bounds();
-  point.x = Math.max(0, Math.min(rect.width, gesture.x + position.x - gesture.start.x));
-  point.y = Math.max(0, Math.min(rect.height, gesture.y + position.y - gesture.start.y));
+  updateDraggedPoint(event);
   render();
  });
  stage.addEventListener('pointerup', event => {
   if (!gesture || gesture.pointerId !== event.pointerId) return;
   const completed = gesture;
+  if (active && completed.kind === 'move') updateDraggedPoint(event);
   gesture = null;
   release(event);
   if (!active) return;
@@ -646,18 +1269,34 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   event.stopPropagation();
   const point = findPoint(selected);
   if (!point) return;
-  remember();
+  const next = {x:point.x, y:point.y};
   const step = (event.shiftKey ? 1 : .1) * scale(), rect = bounds();
-  if (event.key === 'ArrowLeft') point.x = Math.max(0, point.x - step);
-  if (event.key === 'ArrowRight') point.x = point.x > rect.width ? point.x + step : Math.min(rect.width, point.x + step);
-  if (event.key === 'ArrowUp') point.y = Math.max(0, point.y - step);
-  if (event.key === 'ArrowDown') point.y = point.y > rect.height ? point.y + step : Math.min(rect.height, point.y + step);
+  if (snapEnabled) {
+   const horizontal = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
+   const axis = horizontal ? 'x' : 'y', extent = horizontal ? rect.width : rect.height;
+   const positive = event.key === 'ArrowRight' || event.key === 'ArrowDown';
+   const grid = GRID_MM * scale(), count = event.shiftKey ? 2 : 1;
+   const index = positive ? Math.floor(point[axis] / grid + 1e-7) + count : Math.ceil(point[axis] / grid - 1e-7) - count;
+   next[axis] = snapAxis(index * grid, extent);
+  } else {
+   if (event.key === 'ArrowLeft') next.x = Math.max(0, point.x - step);
+   if (event.key === 'ArrowRight') next.x = point.x > rect.width ? point.x + step : Math.min(rect.width, point.x + step);
+   if (event.key === 'ArrowUp') next.y = Math.max(0, point.y - step);
+   if (event.key === 'ArrowDown') next.y = point.y > rect.height ? point.y + step : Math.min(rect.height, point.y + step);
+  }
+  if (Math.hypot(next.x - point.x, next.y - point.y) < .001) return;
+  remember();
+  Object.assign(point, next);
   render();
  });
  doc.addEventListener('keydown', event => {
   if (!active || event.ctrlKey || event.metaKey || event.altKey || event.target.matches?.('input,select,textarea') || event.target.isContentEditable || doc.querySelector('dialog[open]')) return;
   if (event.key === 'Backspace') { event.preventDefault(); undo(); stage.focus({preventScroll:true}); }
   if (event.key === 'Delete' && selected !== null) { event.preventDefault(); deleteSelected(); stage.focus({preventScroll:true}); }
+ });
+ i18n?.onChange?.(() => {
+  render();
+  stage.dispatchEvent(new Event('ruler-mode-change'));
  });
  render();
  return {render, layout};
@@ -666,19 +1305,29 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
 
 (() => {
  const stage = document.getElementById('stage');
- let noticeTimer;
+ let noticeTimer, pointNoticeMessage;
  const tool = installPointMeasurement({
   stage,
+  i18n:window.RulerI18n,
   box:document.getElementById('measureBox'),
   getScale:() => Number(stage.dataset.pmm),
   getUnit:() => stage.dataset.unit || 'mm',
-  toast:message => {
+  ensureGridVisible:() => {
+   const grid = document.getElementById('gridBtn');
+   if (grid.getAttribute('aria-checked') !== 'true') grid.click();
+  },
+  toast:(message, translateMessage) => {
    const notice=document.getElementById('toast');
+   notice.dataset.owner='points';pointNoticeMessage=translateMessage;
    notice.textContent=message;notice.hidden=false;
    clearTimeout(noticeTimer);noticeTimer=setTimeout(() => notice.hidden=true,3500);
   }
  });
- new MutationObserver(() => tool.render()).observe(stage,{attributes:true,attributeFilter:['data-pmm','data-unit']});
+ window.RulerI18n.onChange(() => {
+  const notice=document.getElementById('toast');
+  if (!notice.hidden && notice.dataset.owner==='points' && pointNoticeMessage) notice.textContent=pointNoticeMessage();
+ });
+ new MutationObserver(() => tool.render()).observe(stage,{attributes:true,attributeFilter:['data-pmm','data-unit','class']});
  new ResizeObserver(() => tool.layout()).observe(stage);
 })();
 

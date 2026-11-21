@@ -1,11 +1,52 @@
 // This source is inlined into the offline HTML; it does not load any assets.
-function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
+function installPointMeasurement({stage, box, getScale, getUnit, toast, ensureGridVisible = () => {}, i18n = stage.ownerDocument.defaultView?.RulerI18n}) {
  const doc = stage.ownerDocument;
+ const english = {
+  '测量模式':'Measurement mode',
+  '形状对比':'Shape comparison',
+  '定点测量':'Point measurement',
+  '拖动形状移动，拉动控制点调整尺寸':'Drag the shape to move it; drag its handles to resize.',
+  '吸附网格':'Snap to grid',
+  '新建和拖动的点吸附到 5 mm 网格交点；已有点位保持原位。方向键移动一格，Shift 移动两格。':'New and dragged points snap to the 5 mm grid. Existing points stay in place. Arrow keys move one cell; Shift moves two.',
+  '撤销':'Undo',
+  '撤销上一步定点操作':'Undo the last point operation',
+  '删除点':'Delete point',
+  '删除选中的测量点':'Delete the selected measurement point',
+  '清空':'Clear',
+  '清空所有测量点':'Clear all measurement points',
+  '总长度':'Total length',
+  '任意两点直线距离':'Straight-line distance between any two points',
+  '两点直线':'Point-to-point',
+  '两点距离起点':'Distance start point',
+  '至':'to',
+  '两点距离终点':'Distance end point',
+  '多点距离与可拖动测量点':'Distances and draggable measurement points',
+  '定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。':'Point measurement area: click to add points, drag to move them, and use arrow keys to fine-tune the selected point.',
+  '最多可添加 50 个点。可删除点位，或清空后重新测量。':'You can add up to 50 points. Delete points, or clear them to start again.',
+  '点 {index}':'Point {index}',
+  '网格已隐藏，吸附已关闭。':'The grid is hidden. Snapping is now off.',
+  '测量点 {index}，横坐标 {x}，纵坐标 {y}。{movement}，Delete 删除。':'Measurement point {index}, x {x}, y {y}. {movement}; Delete to remove.',
+  '方向键按 5 毫米网格移动':'Arrow keys move by one 5 mm grid cell',
+  '方向键微调':'Arrow keys fine-tune the position',
+  '{points} 点 · {segments} 段':'{points} point{pointSuffix} · {segments} segment{segmentSuffix}',
+  '最近一段 {distance}':'Last segment {distance}',
+  '{outside} 个点超出可见区域。请扩大窗口；点位与距离保持不变。':'{outside} point{suffix} outside the visible area. Enlarge the window; positions and distances stay unchanged.',
+  '吸附 5 mm 网格；拖点调整，方向键移动一格':'Snap to the 5 mm grid; drag points or move one cell with arrow keys.',
+  '吸附 5 mm 网格；点击交点附近添加点':'Snap to the 5 mm grid; click near an intersection to add a point.',
+  '继续点击添加点；拖动圆点调整，方向键微调':'Click to add points; drag them or fine-tune with arrow keys.',
+  '在测量区连续点击定点，显示各段距离与总长度':'Click in the measurement area to add points and see segment distances and total length.'
+ };
+ function t(message, values = {}) {
+  const template = i18n?.getLanguage?.() === 'en' ? english[message] || message : message;
+  return template.replace(/\{(\w+)\}/g, (match, name) => Object.hasOwn(values, name) ? String(values[name]) : match);
+ }
  const NS = 'http://www.w3.org/2000/svg';
  const factors = {mm:1, cm:10, in:25.4};
  const points = [];
  const history = [];
  const pointNodes = new Map();
+ const GRID_MM = 5;
+ let snapEnabled = false;
  let active = false, selected = null, gesture = null, nextId = 1;
  let pairA = null, pairB = null, pairPinned = false, optionSignature = '';
  const workspace = stage.closest('.workspace');
@@ -42,6 +83,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  .pm-toolbar .pm-hint{font-size:.8rem;line-height:1.7;color:var(--muted);flex:1;min-width:180px;margin:0}
  .pm-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
  .pm-actions button{font-size:.8rem;padding:8px 10px}
+ .pm-actions button[aria-pressed=true]{color:var(--accent);border-color:var(--accent);background:var(--bg)}
  .pm-toolbar [hidden],.pm-readout[hidden],.pm-canvas[hidden]{display:none!important}
  .pm-readout{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:.8rem;line-height:1.6}
  .pm-readout strong{font-weight:550;font-size:1.15rem;color:var(--text);font-variant-numeric:tabular-nums}
@@ -73,25 +115,29 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  const toolbar = el('div', 'pm-toolbar');
  toolbar.id = 'pointToolbar';
  const modes = el('div', 'segmented pm-modes');
- modes.setAttribute('aria-label', '测量模式');
- const boxButton = button('方框对比');
+ modes.setAttribute('aria-label', t('测量模式'));
+ const boxButton = button(t('形状对比'));
  boxButton.id = 'boxModeBtn';
- const pointButton = button('定点测量');
+ const pointButton = button(t('定点测量'));
  pointButton.id = 'pointModeBtn';
  boxButton.setAttribute('aria-pressed', 'true');
  pointButton.setAttribute('aria-pressed', 'false');
  modes.append(boxButton, pointButton);
- const hint = el('p', 'pm-hint', '拖动框内移动，拖动角点调整尺寸');
+ const hint = el('p', 'pm-hint', t('拖动形状移动，拉动控制点调整尺寸'));
  hint.id = 'pointHelp';
  const actions = el('div', 'pm-actions');
  actions.hidden = true;
- const undoButton = button('撤销', '撤销上一步定点操作');
+ const snapButton = button(t('吸附网格'), t('吸附网格'));
+ snapButton.id = 'snapGridBtn';
+ snapButton.setAttribute('aria-pressed', 'false');
+ snapButton.title = t('新建和拖动的点吸附到 5 mm 网格交点；已有点位保持原位。方向键移动一格，Shift 移动两格。');
+ const undoButton = button(t('撤销'), t('撤销上一步定点操作'));
  undoButton.id = 'undoPointBtn';
- const deleteButton = button('删除点', '删除选中的测量点');
+ const deleteButton = button(t('删除点'), t('删除选中的测量点'));
  deleteButton.id = 'deletePointBtn';
- const clearButton = button('清空', '清空所有测量点');
+ const clearButton = button(t('清空'), t('清空所有测量点'));
  clearButton.id = 'clearPointsBtn';
- actions.append(undoButton, deleteButton, clearButton);
+ actions.append(snapButton, undoButton, deleteButton, clearButton);
  toolbar.append(modes, hint, actions);
  viewport.before(toolbar);
  const readout = el('div', 'pm-readout');
@@ -99,7 +145,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  readout.hidden = true;
  readout.setAttribute('role', 'status');
  readout.setAttribute('aria-live', 'polite');
- const totalLabel = el('span', '', '总长度');
+ const totalLabel = el('span', '', t('总长度'));
  const totalValue = el('strong', '', '0.0 mm');
  totalValue.id = 'pointTotal';
  const summary = el('span');
@@ -108,21 +154,21 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
  lastValue.id = 'pointLast';
  const pair = el('div', 'pm-pair');
  pair.setAttribute('role', 'group');
- pair.setAttribute('aria-label', '任意两点直线距离');
- const pairTitle = el('span', '', '两点直线');
+ pair.setAttribute('aria-label', t('任意两点直线距离'));
+ const pairTitle = el('span', '', t('两点直线'));
  const pairFrom = el('select', 'select-field');
  pairFrom.id = 'pointPairFrom';
- pairFrom.setAttribute('aria-label', '两点距离起点');
- const pairSeparator = el('span', '', '至');
+ pairFrom.setAttribute('aria-label', t('两点距离起点'));
+ const pairSeparator = el('span', '', t('至'));
  const pairTo = el('select', 'select-field');
  pairTo.id = 'pointPairTo';
- pairTo.setAttribute('aria-label', '两点距离终点');
+ pairTo.setAttribute('aria-label', t('两点距离终点'));
  const pairValue = el('strong', '', '—');
  pairValue.id = 'pointPairDistance';
  pair.append(pairTitle, pairFrom, pairSeparator, pairTo, pairValue);
  readout.append(totalLabel, totalValue, summary, lastValue, pair);
  originalReadout.before(readout);
- const overlay = svg('svg', {class:'pm-canvas', 'aria-label':'多点距离与可拖动测量点', role:'group'});
+ const overlay = svg('svg', {class:'pm-canvas', 'aria-label':t('多点距离与可拖动测量点'), role:'group'});
  overlay.id = 'pointOverlay';
  overlay.setAttribute('hidden', '');
  const lineLayer = svg('g', {'aria-hidden':'true', 'pointer-events':'none'});
@@ -154,6 +200,27 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   if (clamp) { x = Math.max(0, Math.min(rect.width, x)); y = Math.max(0, Math.min(rect.height, y)); }
   return {x, y};
  }
+ function snapAxis(value, extent) {
+  const step = GRID_MM * scale();
+  const last = Math.max(0, Math.floor((extent + 1e-7) / step));
+  return Math.max(0, Math.min(last, Math.round(value / step))) * step;
+ }
+ function fitPosition(position) {
+  const rect = bounds();
+  return snapEnabled ? {x:snapAxis(position.x, rect.width), y:snapAxis(position.y, rect.height)} : {
+   x:Math.max(0, Math.min(rect.width, position.x)),
+   y:Math.max(0, Math.min(rect.height, position.y))
+  };
+ }
+ function updateDraggedPoint(event) {
+  const position = local(event, false);
+  const dx = position.x - gesture.start.x, dy = position.y - gesture.start.y;
+  if (!gesture.moved && Math.hypot(dx, dy) < (snapEnabled ? Math.min(3, GRID_MM * scale() / 2) : .001)) return;
+  gesture.moved = true;
+  const point = findPoint(gesture.id);
+  if (!point) return;
+  Object.assign(point, fitPosition({x:gesture.x + dx, y:gesture.y + dy}));
+ }
  function capture(event) {
   try { stage.setPointerCapture(event.pointerId); } catch (_) {}
  }
@@ -184,7 +251,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   box.setAttribute('aria-hidden', String(active));
   if (active) {
    stage.setAttribute('tabindex', '0');
-   stage.setAttribute('aria-label', '定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。');
+   stage.setAttribute('aria-label', t('定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。'));
   } else {
    if (originalTabindex === null) stage.removeAttribute('tabindex'); else stage.setAttribute('tabindex', originalTabindex);
    if (originalLabel === null) stage.removeAttribute('aria-label'); else stage.setAttribute('aria-label', originalLabel);
@@ -222,9 +289,9 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   render();
  }
  function addPoint(position) {
-  if (points.length >= 50) { toast('最多可添加 50 个点。可删除点位，或清空后重新测量。'); return; }
+  if (points.length >= 50) { const message='最多可添加 50 个点。可删除点位，或清空后重新测量。'; toast(t(message), () => t(message)); return; }
   remember();
-  const point = {x:position.x, y:position.y, id:nextId++};
+  const point = {...fitPosition(position), id:nextId++};
   points.push(point);
   selected = point.id;
   render();
@@ -245,7 +312,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
    const current = findPoint(point.id);
    if (!current) return;
    selected = current.id;
-   gesture = {kind:'move', pointerId:event.pointerId, start:local(event, false), before:snapshot(), x:current.x, y:current.y, id:current.id};
+   gesture = {kind:'move', pointerId:event.pointerId, start:local(event, false), before:snapshot(), x:current.x, y:current.y, id:current.id, moved:false};
    group.focus({preventScroll:true});
    capture(event);
    render();
@@ -273,7 +340,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   return {total, last};
  }
  function renderPair() {
-  const signature = points.map(p => p.id).join(',');
+  const signature = (i18n?.getLanguage?.() || 'zh') + ':' + points.map(p => p.id).join(',');
   if (!points.length) { pairA = null; pairB = null; pairPinned = false; }
   if (!pairPinned) { pairA = points[0]?.id ?? null; pairB = points[points.length - 1]?.id ?? null; }
   if (!findPoint(pairA)) pairA = points[0]?.id ?? null;
@@ -281,7 +348,7 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   if (signature !== optionSignature || !pairFrom.options.length) {
    optionSignature = signature;
    const makeOptions = () => points.map((point, index) => {
-    const option = el('option', '', '点 ' + (index + 1));
+    const option = el('option', '', t('点 {index}', {index:index + 1}));
     option.value = String(point.id);
     return option;
    });
@@ -294,22 +361,42 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   const a = findPoint(pairA), b = findPoint(pairB);
   pairValue.textContent = a && b && points.length > 1 ? format(Math.hypot(b.x - a.x, b.y - a.y) / scale()) : '—';
  }
+ function translateControls() {
+  for (const [node, text] of [[boxButton,'形状对比'],[pointButton,'定点测量'],[snapButton,'吸附网格'],[undoButton,'撤销'],[deleteButton,'删除点'],[clearButton,'清空'],[totalLabel,'总长度'],[pairTitle,'两点直线'],[pairSeparator,'至']]) {
+   const value = t(text);
+   if (node.textContent !== value) node.textContent = value;
+  }
+  for (const [node, label] of [[modes,'测量模式'],[snapButton,'吸附网格'],[undoButton,'撤销上一步定点操作'],[deleteButton,'删除选中的测量点'],[clearButton,'清空所有测量点'],[pair,'任意两点直线距离'],[pairFrom,'两点距离起点'],[pairTo,'两点距离终点'],[overlay,'多点距离与可拖动测量点']]) {
+   const value = t(label);
+   if (node.getAttribute('aria-label') !== value) node.setAttribute('aria-label', value);
+  }
+  snapButton.title = t('新建和拖动的点吸附到 5 mm 网格交点；已有点位保持原位。方向键移动一格，Shift 移动两格。');
+  if (active) stage.setAttribute('aria-label', t('定点测量区：点击添加测量点，拖动点位调整，方向键微调选中的点。'));
+ }
  function render() {
+  translateControls();
+  if (snapEnabled && stage.classList.contains('no-grid')) {
+   stopGesture(true);
+   snapEnabled = false;
+   const message='网格已隐藏，吸附已关闭。';toast(t(message), () => t(message));
+  }
+  snapButton.setAttribute('aria-pressed', String(snapEnabled));
   const distances = drawSegments();
   const remaining = new Set(points.map(p => p.id));
   for (const [id, node] of pointNodes) if (!remaining.has(id)) { node.group.remove(); pointNodes.delete(id); }
   for (let i = 0; i < points.length; i++) {
    const p = points[i], node = pointNodes.get(p.id) || createPointNode(p);
    node.group.setAttribute('transform', `translate(${p.x},${p.y})`);
-   node.group.setAttribute('aria-label', `测量点 ${i + 1}，横坐标 ${format(p.x / scale())}，纵坐标 ${format(p.y / scale())}。方向键微调，Delete 删除。`);
+   node.group.setAttribute('aria-label', t('测量点 {index}，横坐标 {x}，纵坐标 {y}。{movement}，Delete 删除。', {index:i + 1,x:format(p.x / scale()),y:format(p.y / scale()),movement:t(snapEnabled ? '方向键按 5 毫米网格移动' : '方向键微调')}));
    node.group.setAttribute('aria-pressed', String(selected === p.id));
    node.group.classList.toggle('selected', selected === p.id);
    node.group.classList.toggle('dragging', gesture?.kind === 'move' && gesture.id === p.id);
    node.number.textContent = String(i + 1);
   }
   totalValue.textContent = format(distances.total);
-  summary.textContent = `${points.length} 点 · ${Math.max(0, points.length - 1)} 段`;
-  lastValue.textContent = points.length > 1 ? '最近一段 ' + format(distances.last) : '';
+  const segments = Math.max(0, points.length - 1);
+  summary.textContent = t('{points} 点 · {segments} 段', {points:points.length,segments,pointSuffix:points.length === 1 ? '' : 's',segmentSuffix:segments === 1 ? '' : 's'});
+  lastValue.textContent = points.length > 1 ? t('最近一段 {distance}', {distance:format(distances.last)}) : '';
   renderPair();
   undoButton.disabled = !history.length;
   deleteButton.disabled = selected === null || !findPoint(selected);
@@ -317,14 +404,21 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   const rect = bounds();
   const outside = points.filter(p => p.x < 0 || p.y < 0 || p.x > rect.width || p.y > rect.height).length;
   hint.classList.toggle('pm-overflow', active && outside > 0);
-  if (!active) hint.textContent = '拖动框内移动，拖动角点调整尺寸';
-  else if (outside) hint.textContent = `${outside} 个点超出可见区域。请扩大窗口；点位与距离保持不变。`;
-  else hint.textContent = points.length ? '继续点击添加点；拖动圆点调整，方向键微调' : '在测量区连续点击定点，显示各段距离与总长度';
+  if (!active) hint.textContent = t('拖动形状移动，拉动控制点调整尺寸');
+  else if (outside) hint.textContent = t('{outside} 个点超出可见区域。请扩大窗口；点位与距离保持不变。', {outside,suffix:outside === 1 ? ' is' : 's are'});
+  else if (snapEnabled) hint.textContent = t(points.length ? '吸附 5 mm 网格；拖点调整，方向键移动一格' : '吸附 5 mm 网格；点击交点附近添加点');
+  else hint.textContent = t(points.length ? '继续点击添加点；拖动圆点调整，方向键微调' : '在测量区连续点击定点，显示各段距离与总长度');
  }
  function layout() { render(); }
 
  boxButton.addEventListener('click', () => setMode(false));
  pointButton.addEventListener('click', () => setMode(true));
+ snapButton.addEventListener('click', () => {
+  stopGesture(true);
+  snapEnabled = !snapEnabled;
+  if (snapEnabled) ensureGridVisible();
+  render();
+ });
  undoButton.addEventListener('click', undo);
  deleteButton.addEventListener('click', deleteSelected);
  clearButton.addEventListener('click', clear);
@@ -344,16 +438,13 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
    if (Math.hypot(position.x - gesture.start.x, position.y - gesture.start.y) > 5) gesture.moved = true;
    return;
   }
-  const point = findPoint(gesture.id);
-  if (!point) return;
-  const rect = bounds();
-  point.x = Math.max(0, Math.min(rect.width, gesture.x + position.x - gesture.start.x));
-  point.y = Math.max(0, Math.min(rect.height, gesture.y + position.y - gesture.start.y));
+  updateDraggedPoint(event);
   render();
  });
  stage.addEventListener('pointerup', event => {
   if (!gesture || gesture.pointerId !== event.pointerId) return;
   const completed = gesture;
+  if (active && completed.kind === 'move') updateDraggedPoint(event);
   gesture = null;
   release(event);
   if (!active) return;
@@ -378,18 +469,34 @@ function installPointMeasurement({stage, box, getScale, getUnit, toast}) {
   event.stopPropagation();
   const point = findPoint(selected);
   if (!point) return;
-  remember();
+  const next = {x:point.x, y:point.y};
   const step = (event.shiftKey ? 1 : .1) * scale(), rect = bounds();
-  if (event.key === 'ArrowLeft') point.x = Math.max(0, point.x - step);
-  if (event.key === 'ArrowRight') point.x = point.x > rect.width ? point.x + step : Math.min(rect.width, point.x + step);
-  if (event.key === 'ArrowUp') point.y = Math.max(0, point.y - step);
-  if (event.key === 'ArrowDown') point.y = point.y > rect.height ? point.y + step : Math.min(rect.height, point.y + step);
+  if (snapEnabled) {
+   const horizontal = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
+   const axis = horizontal ? 'x' : 'y', extent = horizontal ? rect.width : rect.height;
+   const positive = event.key === 'ArrowRight' || event.key === 'ArrowDown';
+   const grid = GRID_MM * scale(), count = event.shiftKey ? 2 : 1;
+   const index = positive ? Math.floor(point[axis] / grid + 1e-7) + count : Math.ceil(point[axis] / grid - 1e-7) - count;
+   next[axis] = snapAxis(index * grid, extent);
+  } else {
+   if (event.key === 'ArrowLeft') next.x = Math.max(0, point.x - step);
+   if (event.key === 'ArrowRight') next.x = point.x > rect.width ? point.x + step : Math.min(rect.width, point.x + step);
+   if (event.key === 'ArrowUp') next.y = Math.max(0, point.y - step);
+   if (event.key === 'ArrowDown') next.y = point.y > rect.height ? point.y + step : Math.min(rect.height, point.y + step);
+  }
+  if (Math.hypot(next.x - point.x, next.y - point.y) < .001) return;
+  remember();
+  Object.assign(point, next);
   render();
  });
  doc.addEventListener('keydown', event => {
   if (!active || event.ctrlKey || event.metaKey || event.altKey || event.target.matches?.('input,select,textarea') || event.target.isContentEditable || doc.querySelector('dialog[open]')) return;
   if (event.key === 'Backspace') { event.preventDefault(); undo(); stage.focus({preventScroll:true}); }
   if (event.key === 'Delete' && selected !== null) { event.preventDefault(); deleteSelected(); stage.focus({preventScroll:true}); }
+ });
+ i18n?.onChange?.(() => {
+  render();
+  stage.dispatchEvent(new Event('ruler-mode-change'));
  });
  render();
  return {render, layout};
