@@ -2,7 +2,6 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const html = fs.readFileSync(__dirname + '/屏幕尺子.html', 'utf8');
-assert.equal(fs.readFileSync(__dirname + '/index.html', 'utf8'), html, 'HTML entries must match; run node build-offline.cjs');
 const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(match => match[1]);
 assert(scripts.length > 0, 'No application scripts');
 for (const script of scripts) new vm.Script(script);

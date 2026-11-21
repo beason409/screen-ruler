@@ -29,5 +29,4 @@ const section = marker + '\n<script>\n' + source + '\n' + bridge + '\n</script>\
 if (html.includes(marker)) html = html.slice(0, html.indexOf(marker)) + section + html.slice(html.indexOf(end) + end.length);
 else html = html.replace('</body>', section + '\n</body>');
 fs.writeFileSync(target, html, 'utf8');
-fs.writeFileSync(path.join(__dirname, 'index.html'), html, 'utf8');
 console.log('Built single-file offline HTML with point measurement.');

@@ -2,14 +2,14 @@
 
 一个可以直接在浏览器中打开的屏幕尺子。校准后，把物品放在屏幕前，用可拖动方框或多个标记点对比实际尺寸。
 
-[下载离线版 v1.0.0](https://github.com/beason409/screen-ruler/raw/refs/heads/main/downloads/screen-ruler-v1.0.0.zip) · [详细使用说明与硬币规格来源](使用说明.txt)
+[下载屏幕尺子.html](https://github.com/beason409/screen-ruler/raw/refs/heads/main/%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AD%90.html) · [详细使用说明与硬币规格来源](使用说明.txt)
 
 ![屏幕尺子多点测量预览](docs/preview.jpg)
 
 ## 使用
 
-1. 下载上方离线压缩包并解压，或下载仓库。
-2. 用 Edge、Chrome 或 Firefox 打开 `index.html` 或 `屏幕尺子.html`。两个入口内容相同，单个 HTML 文件即可离线运行，无需安装或启动服务器。
+1. 下载上方的 `屏幕尺子.html`，或下载仓库。
+2. 用 Edge、Chrome 或 Firefox 打开 `屏幕尺子.html`。单个 HTML 文件即可离线运行，无需安装或启动服务器。
 3. 点击“校准屏幕”，选择一种校准方式并保存。
 4. 使用“方框对比”或“定点测量”。
 
@@ -35,7 +35,7 @@
 
 ## 开发与验证
 
-日常使用不需要 Node.js；以下命令仅用于修改源码后的检查与打包准备，不依赖第三方包。
+日常使用不需要 Node.js；以下命令仅用于修改源码后的构建与检查，不依赖第三方包。
 
 ```sh
 node build-offline.cjs
@@ -43,7 +43,7 @@ node check.cjs
 node verify.cjs
 ```
 
-`build-offline.cjs` 把 `point-measurement-source.js` 内联到 `屏幕尺子.html`，并同步生成内容相同的 `index.html`，保持两个入口都可独立离线使用。
+`build-offline.cjs` 把 `point-measurement-source.js` 内联到 `屏幕尺子.html`，保持这个入口可独立离线使用。
 
 发布前已通过脚本语法、DOM 引用和无外部依赖检查，以及 15 项核心行为检查。定点测量的点击、拖动、距离换算、撤销、清空、模式切换及校准比例同步已进行浏览器实测。
 
@@ -51,7 +51,7 @@ node verify.cjs
 
 | 文件 | 用途 |
 | --- | --- |
-| `index.html` / `屏幕尺子.html` | 可独立打开的完整应用 |
+| `屏幕尺子.html` | 可独立打开的完整应用 |
 | `point-measurement-source.js` | 定点测量模块源码 |
 | `build-offline.cjs` | 更新 HTML 内联模块 |
 | `check.cjs` / `verify.cjs` | 静态检查与核心行为检查 |
@@ -59,6 +59,6 @@ node verify.cjs
 
 ## English
 
-Screen Ruler is a self-contained browser tool for comparing real objects against a draggable rectangle or measuring distances between marked points. Open either HTML entry locally; no installation, server, network connection, or external assets are required.
+Screen Ruler is a self-contained browser tool for comparing real objects against a draggable rectangle or measuring distances between marked points. Open `屏幕尺子.html` locally; no installation, server, network connection, or external assets are required.
 
 Calibrate with display dimensions and resolution, a coin, a bank card, or a known length. Display-parameter calibration is an estimate; use a physical reference for greater accuracy, and recalibrate after changing displays or zoom. Settings stay in browser-local storage, and point positions are cleared when the page reloads.
