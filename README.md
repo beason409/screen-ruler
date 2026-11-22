@@ -2,14 +2,14 @@
 
 一个可以直接在浏览器中打开的屏幕尺子。校准后，把物品放在屏幕前，用可拖动方框、圆形或多个标记点对比实际尺寸。
 
-[下载screen-ruler.html](https://github.com/beason409/screen-ruler/raw/refs/heads/main/screen-ruler.html) · [详细使用说明与硬币规格来源](使用说明.txt)
+[打开在线屏幕尺子](https://beason409.github.io/screen-ruler/screen-ruler.html) · [下载离线 HTML](https://github.com/beason409/screen-ruler/raw/refs/heads/main/screen-ruler.html) · [详细使用说明与硬币规格来源](使用说明.txt)
 
 ![屏幕尺子中英文多点测量预览](docs/preview.jpg)
 
 ## 使用
 
-1. 下载上方的 `screen-ruler.html`，或下载仓库。
-2. 用 Edge、Chrome 或 Firefox 打开 `screen-ruler.html`。单个 HTML 文件即可离线运行，无需安装或启动服务器。
+1. 点击上方「打开在线屏幕尺子」，无需下载或安装。
+2. 需要离线使用时，下载上方的 `screen-ruler.html`，用 Edge、Chrome 或 Firefox 直接打开，无需启动服务器。
 3. 点击“校准屏幕”，选择一种校准方式并保存。
 4. 使用“形状对比”或“定点测量”；形状可选方框或圆形。
 5. 页头点击“English”切换英文，点击“中文”切回中文；语言选择保存在当前浏览器。
@@ -72,6 +72,8 @@ node verify-points.cjs
 | `使用说明.txt` | 操作说明、校准公式与硬币规格来源 |
 
 ## English
+
+[Open the online screen ruler](https://beason409.github.io/screen-ruler/screen-ruler.html)
 
 Screen Ruler is a self-contained browser tool for comparing real objects against a draggable rectangle or circle, or measuring distances between marked points. Open `screen-ruler.html` locally; no installation, server, network connection, or external assets are required.
 

@@ -3,13 +3,13 @@ window.RulerI18n = (() => {
  'use strict';
  const storageKey = 'screen-ruler-language';
  const english = {
-  '屏幕尺子 · 实物尺寸对比':'Screen Ruler · Real-size comparison',
+  '在线屏幕尺子｜校准后按实际尺寸测量':'Online Screen Ruler | Measure at Actual Size',
   '屏幕尺子':'Screen Ruler',
   '个人标识':'Personal mark',
   '好用的话，给个 Star 吧':'Find this useful? Give it a star.',
   '前往 GitHub 仓库，给屏幕尺子点个 Star（新标签页）':'Visit the GitHub repository and star Screen Ruler (opens a new tab)',
   'beason409/screen-ruler · 在 GitHub 上支持这个工具':'beason409/screen-ruler · Support this tool on GitHub',
-  '可离线使用的屏幕实物尺子。校准屏幕后，拖动测量框对比物品的真实宽高。':'An offline screen ruler. Calibrate your display, then drag a measuring shape to compare real object dimensions.',
+  '免费的在线屏幕尺子，支持毫米、厘米和英寸。用银行卡、硬币或直尺校准屏幕后，即可测量物体的实际尺寸，也可下载单个 HTML 文件离线使用。':'Free online screen ruler with mm, cm and inches. Calibrate with a bank card, coin or ruler to compare actual object sizes, or download the HTML for offline use.',
   '本地运行 · 无需联网':'Local · Works offline',
   '切换明暗背景':'Switch light / dark theme',
   '收起工具栏，扩大测量区':'Hide the sidebar for more measuring space',
@@ -56,7 +56,7 @@ window.RulerI18n = (() => {
   '退出':'Exit',
   '实物测量区':'Real-size measuring area',
   '把物品放到屏幕前，直接比一比。':'Hold an object up to the screen to compare.',
-  '以边框外沿为尺寸边界，网格和刻度随校准同步。':'Measure to the outer edge. Grid and ruler marks follow your calibration.',
+  '先用银行卡、硬币或直尺校准屏幕，再用测量框外沿对比实物尺寸。':'Calibrate with a bank card, coin, or ruler, then compare the object against the outer edge of the measuring shape.',
   '全屏测量工具':'Fullscreen measuring tools',
   '定点测量':'Point measurement',
   '形状对比':'Shape comparison',
@@ -270,7 +270,7 @@ window.RulerI18n = (() => {
  }
  function updateShell() {
   doc.documentElement?.setAttribute('lang', language === 'en' ? 'en' : 'zh-CN');
-  doc.title = t('屏幕尺子 · 实物尺寸对比');
+  doc.title = t('在线屏幕尺子｜校准后按实际尺寸测量');
   const button = doc.getElementById?.('languageBtn');
   if (button) {
    button.textContent = language === 'en' ? '中文' : 'English';
