@@ -9,5 +9,6 @@ const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(x => x[1]);
 assert.equal(ids.length, new Set(ids).size, 'Duplicate HTML IDs');
 const uses = scripts.flatMap(script => [...script.matchAll(/\$\('([^']+)'\)/g)].map(x => x[1]));
 assert.deepEqual([...new Set(uses.filter(x => !ids.includes(x)))], [], 'Missing DOM elements');
-assert(!/https?:\/\//.test(html.replace(/http:\/\/www.w3.org\/2000\/svg/g, '')), 'External dependencies');
+const repoLink = 'href="https://github.com/beason409/screen-ruler"';
+assert(!/https?:\/\//.test(html.replace(/http:\/\/www.w3.org\/2000\/svg/g, '').replace(repoLink, '')), 'External dependencies');
 console.log('PASS: JavaScript syntax, DOM references, unique IDs, no external dependencies.');
